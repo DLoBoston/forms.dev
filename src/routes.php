@@ -5,6 +5,15 @@
  * @author Digital D.Lo <WebDevDLo@gmaiil.com>
  */
 
-$app->get('/', function ($request, $response, $args) {
-    return $response->write("Hello ....");
+$app->get('/', function ($request, $response) {
+	
+	$this->get('orm');
+	
+	$forms = \IFS\Models\AccountForm::find(1);
+	
+	echo $forms->name;
+exit('debug');
+			
+	$response = $this->view->render($response, "index.php", ['forms' => $forms]);
+	return $response;
 });
