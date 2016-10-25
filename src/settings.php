@@ -6,5 +6,21 @@
  */
 
  return $settings = [
-    'displayErrorDetails' => true
+    'displayErrorDetails' => true,
+    'db' => [ // For PDO connection
+        'host' => 'localhost',
+        'dbname' => 'forms',
+        'user' => 'forms',
+        'pass' => 'smrof'
+        ],
+    'orm' => [ // For Eloquent ORM
+        'driver' => 'mysql',
+        'host' => 'localhost',
+        'database' => 'forms',
+        'username' => 'forms',
+        'password' => 'smrof',
+        'charset'   => 'utf8',
+        'collation' => 'utf8_unicode_ci',
+        'prefix'    => '',
+        ]
     ];
