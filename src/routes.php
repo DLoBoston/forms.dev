@@ -6,14 +6,11 @@
  */
 
 $app->get('/', function ($request, $response) {
-	
-	$this->get('orm');
-	
-	$forms = \IFS\Models\AccountForm::find(1);
-	
-	echo $forms->name;
-exit('debug');
-			
-	$response = $this->view->render($response, "index.php", ['forms' => $forms]);
+	$response = $this->view->render($response, "forms_home.php", ['page_title' => 'Forms Home']);
+	return $response;
+});
+
+$app->get('/builder', function ($request, $response) {
+	$response = $this->view->render($response, "form_builder.php", ['page_title' => 'Form Builder']);
 	return $response;
 });
