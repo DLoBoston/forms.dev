@@ -2,15 +2,9 @@
 /**
  * Set the routes the app responds to
  * @link http://www.slimframework.com/docs/objects/router.html
- * @author Digital D.Lo <WebDevDLo@gmaiil.com>
+ * @author dennis <dennis@ifscore.com>
  */
 
-$app->get('/', function ($request, $response) {
-	$response = $this->view->render($response, "forms_home.php", ['page_title' => 'Forms Home']);
-	return $response;
-});
+$app->get('/', '\IFS\Controllers\FormsSiteController:showHome');
 
-$app->get('/builder', function ($request, $response) {
-	$response = $this->view->render($response, "form_builder.php", ['page_title' => 'Form Builder']);
-	return $response;
-});
+$app->get('/builder', '\IFS\Controllers\FormsSiteController:showBuilder');
