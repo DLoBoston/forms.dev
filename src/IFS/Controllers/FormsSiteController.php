@@ -49,4 +49,44 @@ class FormsSiteController {
 		return $response;
 	}
 	
+    /**
+     * Delete form.
+     * 
+     * @param \Slim\Http\Request $request PSR-7 Request
+     * @param \Slim\Http\Response $response PSR-7 Response
+     */
+	public function deleteForm(Request $request, Response $response) {
+		
+	}
+	
+    /**
+     * Disable form.
+     * 
+     * @param \Slim\Http\Request $request PSR-7 Request
+     * @param \Slim\Http\Response $response PSR-7 Response
+     */
+	public function disableForm(Request $request, Response $response) {
+	
+	}
+	
+    /**
+     * Enable form.
+     * 
+     * @param \Slim\Http\Request $request PSR-7 Request
+     * @param \Slim\Http\Response $response PSR-7 Response
+     */
+	public function enableForm(Request $request, Response $response) {
+		
+	}
+	
+    /**
+     * Process form builder submission.
+     * 
+     * @param \Slim\Http\Request $request PSR-7 Request
+     * @param \Slim\Http\Response $response PSR-7 Response
+     */
+	public function processBuilderSubmission(Request $request, Response $response) {
+		
+	}
+	
 }
