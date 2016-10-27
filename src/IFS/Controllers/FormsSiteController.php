@@ -32,8 +32,8 @@ class FormsSiteController {
 	 * @param \Slim\Http\Response $response PSR-7 Response
 	 * @return \Slim\Http\Response $response PSR-7 Response
 	 */
-	public function showHome(Request $request, Response $response) {
-		
+	public function showHome(Request $request, Response $response)
+	{
 		// Get forms
 		$this->container->get('orm');
 		$all_forms = \IFS\Models\CustomForm::all();
@@ -52,17 +52,21 @@ class FormsSiteController {
 	 * @param array $args Named placeholders from the URL
 	 * @return \Slim\Http\Response $response PSR-7 Response
 	 */
-	public function showBuilder(Request $request, Response $response, $args) {
-		
+	public function showBuilder(Request $request, Response $response, $args)
+	{
 		// Get form if applicable
+		$form = null;
 		if (!empty($args)) :
 			$this->container->get('orm');
 			$form = \IFS\Models\CustomForm::findOrFail((int)$args['id']);
 		endif;
 		
+		// Initialize form vars
+		$form_data = \IFS\Models\CustomForm::initFormVars($form);
+		
 		// Return template
 		$response = $this->container->get('view')->render($response, "form_builder.php", ['page_title' => 'Form Builder',
-																																											'form' => $form]);
+																																											'form_data' => $form_data]);
 		return $response;
 	}
 	
@@ -72,7 +76,8 @@ class FormsSiteController {
 	 * @param \Slim\Http\Request $request PSR-7 Request
 	 * @param \Slim\Http\Response $response PSR-7 Response
 	 */
-	public function deleteForm(Request $request, Response $response) {
+	public function deleteForm(Request $request, Response $response)
+	{
 		
 	}
 	
@@ -82,7 +87,8 @@ class FormsSiteController {
 	 * @param \Slim\Http\Request $request PSR-7 Request
 	 * @param \Slim\Http\Response $response PSR-7 Response
 	 */
-	public function deactivateForm(Request $request, Response $response) {
+	public function deactivateForm(Request $request, Response $response)
+	{
 	
 	}
 	
@@ -92,7 +98,8 @@ class FormsSiteController {
 	 * @param \Slim\Http\Request $request PSR-7 Request
 	 * @param \Slim\Http\Response $response PSR-7 Response
 	 */
-	public function activateForm(Request $request, Response $response) {
+	public function activateForm(Request $request, Response $response)
+	{
 		
 	}
 	
@@ -102,7 +109,8 @@ class FormsSiteController {
 	 * @param \Slim\Http\Request $request PSR-7 Request
 	 * @param \Slim\Http\Response $response PSR-7 Response
 	 */
-	public function processBuilderSubmission(Request $request, Response $response) {
+	public function processBuilderSubmission(Request $request, Response $response)
+	{
 		
 	}
 	
