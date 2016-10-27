@@ -6,6 +6,8 @@
 	<?php include 'partials/header.php'; ?>
   
 	<h3>All Forms</h3>
+	
+	<p><a href="/builder">Add new form</a></p>
   
 	<ul>
 		<?php
