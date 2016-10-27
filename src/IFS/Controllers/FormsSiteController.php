@@ -64,10 +64,46 @@ class FormsSiteController {
 		// Initialize form vars
 		$form_data = \IFS\Models\CustomForm::initFormVars($form);
 		
+		// Get URI object for route to be passed to template
+		$uri = $request->getUri();
+		
 		// Return template
 		$response = $this->container->get('view')->render($response, "form_builder.php", ['page_title' => 'Form Builder',
-																																											'form_data' => $form_data]);
+																																											'route' => $uri->getPath(),
+																																											'form_data' => $form_data
+			]);
 		return $response;
+	}
+	
+	/**
+	 * Process form builder submission. Validate and save valid input. Upon success, redirect home.
+	 * 
+	 * @param \Slim\Http\Request $request PSR-7 Request
+	 * @param \Slim\Http\Response $response PSR-7 Response
+	 * @param array $args Named placeholders from the URL
+	 */
+	public function processBuilderSubmission(Request $request, Response $response, $args)
+	{
+		// Get submitted data
+		$parsedBody = $request->getParsedBody();
+		
+		// Connect to ORM
+		$this->container->get('orm');
+		
+		// Setup form object
+		if (empty($args)) :
+			$form = new \IFS\Models\CustomForm;
+		else :
+			$form = \IFS\Models\CustomForm::findOrFail((int)$args['id']);
+		endif;
+		
+		// Update form object with user submission and save
+		$form->name = $parsedBody['name'];
+		$form->save();
+		
+		// Redirect to home
+		redirect_to('/');
+		
 	}
 	
 	/**
@@ -99,17 +135,6 @@ class FormsSiteController {
 	 * @param \Slim\Http\Response $response PSR-7 Response
 	 */
 	public function activateForm(Request $request, Response $response)
-	{
-		
-	}
-	
-	/**
-	 * Process form builder submission.
-	 * 
-	 * @param \Slim\Http\Request $request PSR-7 Request
-	 * @param \Slim\Http\Response $response PSR-7 Response
-	 */
-	public function processBuilderSubmission(Request $request, Response $response)
 	{
 		
 	}
