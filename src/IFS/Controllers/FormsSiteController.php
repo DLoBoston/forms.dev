@@ -60,22 +60,22 @@ class FormsSiteController {
 	}
 	
     /**
-     * Disable form.
+     * Deactivate form.
      * 
      * @param \Slim\Http\Request $request PSR-7 Request
      * @param \Slim\Http\Response $response PSR-7 Response
      */
-	public function disableForm(Request $request, Response $response) {
+	public function deactivateForm(Request $request, Response $response) {
 	
 	}
 	
     /**
-     * Enable form.
+     * Activate form.
      * 
      * @param \Slim\Http\Request $request PSR-7 Request
      * @param \Slim\Http\Response $response PSR-7 Response
      */
-	public function enableForm(Request $request, Response $response) {
+	public function activateForm(Request $request, Response $response) {
 		
 	}
 	
