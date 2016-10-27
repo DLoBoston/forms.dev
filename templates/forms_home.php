@@ -14,7 +14,5 @@
 			endforeach;
 		?>
 	</ul>
-	
-</body>
 
 <?php include 'partials/html_footer.php';

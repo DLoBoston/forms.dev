@@ -107,14 +107,22 @@ class FormsSiteController {
 	}
 	
 	/**
-	 * Delete form.
+	 * Delete form and redirect.
 	 * 
 	 * @param \Slim\Http\Request $request PSR-7 Request
 	 * @param \Slim\Http\Response $response PSR-7 Response
+	 * @param array $args Named placeholders from the URL
 	 */
-	public function deleteForm(Request $request, Response $response)
+	public function deleteForm(Request $request, Response $response, $args)
 	{
+		// Connect to ORM
+		$this->container->get('orm');
 		
+		// Delete form
+		\IFS\Models\CustomForm::destroy($args['id']);
+		
+		// Redirect to home
+		redirect_to('/');
 	}
 	
 	/**
