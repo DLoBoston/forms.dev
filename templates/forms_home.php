@@ -5,7 +5,15 @@
   
 	<?php include 'partials/header.php'; ?>
   
-	HOME
+	<h3>All Forms</h3>
+  
+	<ul>
+		<?php
+			foreach ($all_forms as $form) :
+				echo '<li><a href="/builder/' . $form->form_id . '">' . $form->name . '</a></li>';
+			endforeach;
+		?>
+	</ul>
 	
 </body>
 
