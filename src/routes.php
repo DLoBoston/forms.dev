@@ -7,4 +7,4 @@
 
 $app->get('/', '\IFS\Controllers\FormsSiteController:showHome');
 
-$app->get('/builder', '\IFS\Controllers\FormsSiteController:showBuilder');
+$app->get('/builder[/{id}]', '\IFS\Controllers\FormsSiteController:showBuilder');

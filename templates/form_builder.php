@@ -5,7 +5,7 @@
   
 	<?php include 'partials/header.php'; ?>
   
-	BUILDER
+	<?php echo $form->name; ?>
 	
 </body>
 
