@@ -12,11 +12,14 @@
 		</div>
 		
 		<?php
-			foreach ($form['form_elements'] as $element) :
-				echo '<div class="form-group">';
-				echo $element->label . ' ' . $element->type;
-				echo '</div>';
-			endforeach;
+			if ($form['elements']) :
+				foreach ($form['elements'] as $element) :
+					echo '<div class="form-group">';
+					echo $element->label . ' ' . $element->type;
+					echo ' | <a data-element-id="' . $element->form_element_id . '" data-element-action="delete">delete</a>';
+					echo '</div>';
+				endforeach;
+			endif;
 		?>
 			
 		<div class="form-group">
