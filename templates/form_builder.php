@@ -6,6 +6,7 @@
 	<?php include 'partials/header.php'; ?>
 	
 	<form id="frmBuilder" action="<?= htmlspecialchars($route, ENT_QUOTES, "utf-8"); ?>" method="post">
+		<input type="hidden" name="form_elements" name="form_elements">
 		
 		<div class="form-group">
 			<input type="text" name="name" value="<?= $form['name']; ?>">

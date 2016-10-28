@@ -34,4 +34,9 @@ $(document).ready(function() {
 		$(this).parent().remove();
 	});
 	
+	// On builder submission, serialize form_elements and store in hidden field
+	$("#frmBuilder").submit(function(event) {
+		$("input[name='form_elements']").val(JSON.stringify(form_elements));
+	});
+	
 });
