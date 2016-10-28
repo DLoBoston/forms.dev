@@ -15,8 +15,13 @@
 			if ($form['elements']) :
 				foreach ($form['elements'] as $element) :
 					echo '<div class="form-group">';
-					echo $element->label . ' ' . $element->type;
-					echo ' | <a data-element-id="' . $element->form_element_id . '" data-element-action="delete">delete</a>';
+						echo '<div data-form-element-id="' . $element->form_element_id . '"'
+										. 'data-form-element-type="' . $element->type . '"'
+										. 'data-form-element-label="' . $element->label . '"'
+										. '>';
+							echo $element->label . ' ' . $element->type;
+							echo ' | <a data-form-element-action="delete">delete</a>';
+						echo '</div>';
 					echo '</div>';
 				endforeach;
 			endif;
