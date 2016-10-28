@@ -58,7 +58,7 @@ class FormsSiteController {
 		$form = null;
 		if (!empty($args)) :
 			$this->container->get('orm');
-			$form = \IFS\Models\CustomForm::findOrFail((int)$args['id']);
+			$form = \IFS\Models\CustomForm::with('form_elements')->findOrFail((int)$args['id']);
 		endif;
 		
 		// Initialize builder vars
