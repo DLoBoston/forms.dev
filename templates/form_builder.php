@@ -7,15 +7,23 @@
 	
 	<form id="frmBuilder" action="<?= htmlspecialchars($route, ENT_QUOTES, "utf-8"); ?>" method="post">
 		
-		<div class="form-group">			
-			<input type="text" name="name" value="<?= $form_data['name']; ?>">
+		<div class="form-group">
+			<input type="text" name="name" value="<?= $form['name']; ?>">
+		</div>
+		
+		<?php
+			foreach ($form['form_elements'] as $element) :
+				echo '<div class="form-group">';
+				echo $element->label . ' ' . $element->type;
+				echo '</div>';
+			endforeach;
+		?>
+			
+		<div class="form-group">
+			<button type="submit"><?php echo ($form['form_id']) ? 'Update' : 'Create'; ?></button>
 		</div>
 			
-		<div class="form-group">			
-			<button type="submit"><?php echo ($form_data['form_id']) ? 'Update' : 'Create'; ?></button>
-		</div>
-			
-		<div class="form-group">			
+		<div class="form-group">
 			<button id="btnDelete" type="button">Delete</button>
 		</div>
 		

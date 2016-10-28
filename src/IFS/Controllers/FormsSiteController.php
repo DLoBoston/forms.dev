@@ -61,8 +61,8 @@ class FormsSiteController {
 			$form = \IFS\Models\CustomForm::findOrFail((int)$args['id']);
 		endif;
 		
-		// Initialize form vars
-		$form_data = \IFS\Models\CustomForm::initFormVars($form);
+		// Initialize builder vars
+		$form_data = \IFS\Models\CustomForm::initBuilderVars($form);
 		
 		// Get URI object for route to be passed to template
 		$uri = $request->getUri();
@@ -70,7 +70,7 @@ class FormsSiteController {
 		// Return template
 		$response = $this->container->get('view')->render($response, "form_builder.php", ['page_title' => 'Form Builder',
 																																											'route' => $uri->getPath(),
-																																											'form_data' => $form_data
+																																											'form' => $form
 			]);
 		return $response;
 	}

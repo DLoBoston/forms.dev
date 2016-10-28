@@ -17,24 +17,34 @@ class CustomForm extends Model
 	protected $primaryKey = 'form_id';
 	
 	/**
-	 * Initializes the vars for form display. Overwrite with optionally passed in data.
+	 * Get the form elements for a specific form.
+	 */
+	public function form_elements()
+	{
+			return $this->hasMany('IFS\Models\FormElement', 'form_id');
+	}
+	
+	/**
+	 * Initializes the vars for form display in Builder. Overwrite with optionally passed in data.
 	 * 
 	 * @param \IFS\Models\CustomForm $form Custom form.
 	 * @return array $data Initialized data to populate the form fields
 	 */
-	public static function initFormVars($form = null)
+	public static function initBuilderVars($form = null)
 	{
 		// Initialize form vars
 		$data = [
 				'form_id' => null,
-				'name' => ''
+				'name' => '',
+				'elements' => null
 			];
 		
 		// Overwrite with existing form model if applicable
 		if (!empty($form)) :
 			$data = [
 					'form_id' => $form->form_id,
-					'name' => $form->name
+					'name' => $form->name,
+					'elements' => $form->form_elements
 				];
 		endif;
 
