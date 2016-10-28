@@ -70,7 +70,7 @@ class FormsSiteController {
 		// Return template
 		$response = $this->container->get('view')->render($response, "form_builder.php", ['page_title' => 'Form Builder',
 																																											'route' => $uri->getPath(),
-																																											'form' => $form
+																																											'form' => $form_data
 			]);
 		return $response;
 	}
