@@ -13,5 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class FormElement extends Model
 {
-	//put your code here
+  /** @var string Overrides ID assumed by Eloquent */
+  protected $primaryKey = 'form_element_id';
+  
 }
