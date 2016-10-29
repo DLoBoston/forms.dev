@@ -1,57 +1,68 @@
 $(document).ready(function() {
   
-    //// GLOBAL VARS ------------------------------------
+    //// GLOBAL ------------------------------------
     
-    // HTML for empty form element
-    var htmlEmptyFormElement = '<div class="form-group">' +
-                                  '<div data-form-element-id=""' +
-                                       'data-form-element-type=""' +
-                                       'data-form-element-label="">' +
-                                     'NEW ELEMENT' +
-                                     ' | <a data-form-element-action="delete">delete</a>' +
-                                  '</div>' +
-                                '</div>';
+    var form_elements = [];
+    var current_form_data = passthrough_form_data; // init_form_data comes from html template
     
-    //// ON LOAD EVENTS ------------------------------------
+    //// CUSTOM OBJECTS ------------------------------------
+    
+    // Form Element
+    var FormElement = function (id, type, label) {
+      this.id = id;
+      this.type = type;
+      this.label = label;
+    };
+      // Method associated with FormElement to get generic form element HTML
+      FormElement.prototype.getGenericHtml = function(id = '', type = '', label = '') {
+        return '<div class="form-group">' +
+                  '<div data-form-element-id="' + id + '"' +
+                       'data-form-element-type="' + type + '"' +
+                       'data-form-element-label="' + label + '">' +
+                     label +
+                     ' | <a data-form-element-action="delete">delete</a>' +
+                  '</div>' +
+                '</div>';
+      };
+    
+    //// ONLOAD EVENTS ------------------------------------
 
-    // Setup add form element button
+    // Display current form elements
+    for (var i = 0; i < current_form_data.elements.length; i++) {
+      addFormElement(current_form_data.elements[i].form_element_id,
+                        current_form_data.elements[i].type,
+                        current_form_data.elements[i].label);
+    };
+
+    // Setup handler - add form element button
     $("#btnAddElement").click(function() {
-      addFormElementToDom();
+      addFormElement();
     });
 
-    // Setup form delete button
+    // Setup handler - form delete button. Adds hidden field and then submits form
     $("#btnDelete").click(function() {
       $("#frmBuilder").prepend('<input type="hidden" name="_METHOD" value="DELETE"/>').submit();
     });
 
-    // Setup delete links on existing form elements
-    $("a[data-form-element-action='delete']").click(event, handlerFormElementDeleteLink);
-
-    // Store initial form elements in javascript
-    var form_elements = [];
-    $("div[data-form-element-id]").each(function() {
-      form_elements.push(new FormElement($(this).data("form-element-id"),
-                                          $(this).data("form-element-label"),
-                                          $(this).data("form-element-label")));
-    });
-
-    // On builder submission, serialize form_elements and store in hidden field
+    // Setup handler - on builder submission. Serialize form_elements and store in hidden field to send back in request for processing
     $("#frmBuilder").submit(function(event) {
+      // Capture FormElement(s) from markup
+      $("div[data-form-element-id]").each(function() {
+        form_elements.push(new FormElement($(this).data("form-element-id"),
+                                            $(this).data("form-element-type"),
+                                            $(this).data("form-element-label")));
+      });
+      // JSON encode and place in hidden var
       $("input[name='form_elements']").val(JSON.stringify(form_elements));
     });
     
     //// FUNCTIONS ------------------------------------
-	
-    // Form element constructor
-    function FormElement(id, type, label) {
-      this.id = id;
-      this.type = type;
-      this.label = label;
-    }
     
     // Function to add a new form element to the DOM
-    function addFormElementToDom() {
-      $("#btnAddElement").parent().before(htmlEmptyFormElement);
+    function addFormElement(id = '', type = '', label = 'NEW ELEMENT') {
+      // Add generic form element html to dom
+      $("#btnAddElement").parent().before(FormElement.prototype.getGenericHtml(id, type, label));
+      // Add delete link event handler
       $("a[data-form-element-action='delete']").last().click(event, handlerFormElementDeleteLink);
     }
     
@@ -59,14 +70,19 @@ $(document).ready(function() {
     function handlerFormElementDeleteLink(event) {
       // Prevent default link action
       event.preventDefault();
-      // Remove element from javascript storage
-      for (var i = 0; i < form_elements.length; i++) {
-        if (form_elements[i].id === $(this).parent().data("form-element-id")) {
-          form_elements.splice(i,1);
-        }
-      }
       // Remove element from DOM
       $(this).parent().remove();
     }
 	
 });
+
+
+//      // Remove element from javascript storage
+//      for (var i = 0; i < form_elements.length; i++) {
+//        if (form_elements[i].id === $(this).parent().data("form-element-id")) {
+//          form_elements.splice(i,1);
+//        }
+//      }
+
+//      // Add element to javascript storage
+//      form_elements.push(new FormElement(id, type, label));
