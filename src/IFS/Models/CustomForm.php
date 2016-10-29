@@ -17,7 +17,7 @@ class CustomForm extends Model
 	protected $primaryKey = 'form_id';
 	
 	/**
-	 * Get the form elements for a specific form.
+	 * Eloquent function to get the form elements for a specific form.
 	 */
 	public function form_elements()
 	{
