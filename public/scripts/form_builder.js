@@ -59,7 +59,7 @@ $(document).ready(function() {
     //// FUNCTIONS ------------------------------------
     
     // Function to add a new form element to the DOM
-    function addFormElement(id = '', type = '', label = 'NEW ELEMENT') {
+    function addFormElement(id = '', type = 'text', label = 'NEW ELEMENT') {
       // Add generic form element html to dom
       $("#btnAddElement").parent().before(FormElement.prototype.getGenericHtml(id, type, label));
       // Add delete link event handler
