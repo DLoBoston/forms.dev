@@ -61,7 +61,7 @@ class FormsSiteController {
 			$form = \IFS\Models\CustomForm::with('form_elements')->findOrFail((int)$args['id']);
 		endif;
 		
-		// Initialize builder vars
+		// Initialize builder data
 		$form_data = \IFS\Models\CustomForm::initBuilderVars($form);
 		
 		// Get URI object for route to be passed to template
@@ -90,11 +90,12 @@ class FormsSiteController {
 		// Connect to ORM
 		$this->container->get('orm');
 		
-		// Setup form object
-		if (empty($args)) :
-			$form = new \IFS\Models\CustomForm;
-		else :
+		// If URL param present, setup form object from an existing model in the database
+		if (!empty($args)) :
 			$form = \IFS\Models\CustomForm::findOrFail((int)$args['id']);
+		// Else, setup a new form object
+		else :
+			$form = new \IFS\Models\CustomForm;
 		endif;
 		
 		// Update form object with user submission and save
