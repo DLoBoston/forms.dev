@@ -101,6 +101,31 @@ class FormsSiteController {
 		// Update form object with user submission and save
 		$form->name = $parsedBody['name'];
 		$form->save();
+    
+		// Update form elements associated with form
+		
+			// Get user's submission
+			$form_elements = json_decode($parsedBody['form_elements']);
+		
+			// Loop through each element
+			foreach ($form_elements as $form_element) :
+
+				// If there is an ID, setup a form element object from an existing model in the database
+				if ($form_element->id) :
+					$tmpFormElement = \IFS\Models\FormElement::find($form_element->id);
+				// Else, setup a new form element object
+				else :
+					$tmpFormElement = new \IFS\Models\FormElement;
+				endif;
+		
+				// Update form element object with user submission and save
+				$tmpFormElement->type = $form_element->type;
+				$tmpFormElement->label = $form_element->label;
+				$form->form_elements()->save($tmpFormElement);
+
+			endforeach;
+			
+			// TODO Remove any records that are no longer present in the current submission
 		
 		// Redirect to home
 		redirect_to('/');
