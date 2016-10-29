@@ -29,6 +29,10 @@
 		?>
 			
 		<div class="form-group">
+			<button id="btnAddElement" type="button">Add Element</button>
+		</div>
+			
+		<div class="form-group">
 			<button type="submit"><?php echo ($form['form_id']) ? 'Update' : 'Create'; ?></button>
 		</div>
 			
