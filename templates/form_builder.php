@@ -11,22 +11,6 @@
 		<div class="form-group">
 			<input type="text" name="name" value="<?= $form['name']; ?>">
 		</div>
-		
-		<?php
-			if ($form['elements']) :
-				foreach ($form['elements'] as $element) :
-					echo '<div class="form-group">';
-						echo '<div data-form-element-id="' . $element->form_element_id . '"'
-										. 'data-form-element-type="' . $element->type . '"'
-										. 'data-form-element-label="' . $element->label . '"'
-										. '>';
-							echo $element->label . ' ' . $element->type;
-							echo ' | <a data-form-element-action="delete">delete</a>';
-						echo '</div>';
-					echo '</div>';
-				endforeach;
-			endif;
-		?>
 			
 		<div class="form-group">
 			<button id="btnAddElement" type="button">Add Element</button>
@@ -41,6 +25,11 @@
 		</div>
 		
 	</form>
+  
+  <!-- Pass through current form data to javascript -->
+  <script>
+    var passthrough_form_data = <?php echo json_encode($form); ?>;
+  </script>
 	
 	<?php $page_scripts[] = '<script src="/scripts/form_builder.js"></script>'; ?>
 
