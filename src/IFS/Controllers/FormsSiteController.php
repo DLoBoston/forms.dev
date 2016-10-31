@@ -52,7 +52,7 @@ class FormsSiteController {
 	 * @param array $args Named placeholders from the URL
 	 * @return \Slim\Http\Response $response PSR-7 Response
 	 */
-	public function showBuilder(Request $request, Response $response, $args)
+	public function showBuilder(Request $request, Response $response, array $args)
 	{
 		// Get form if applicable
 		$form = null;
@@ -177,6 +177,27 @@ class FormsSiteController {
 	public function activateForm(Request $request, Response $response)
 	{
 		
+	}
+	
+	/**
+	 * Display custom form. Suitable for user input.
+	 * 
+	 * @param \Slim\Http\Request $request PSR-7 Request
+	 * @param \Slim\Http\Response $response PSR-7 Response
+	 * @param array $args Named placeholders from the URL
+	 * @return \Slim\Http\Response $response PSR-7 Response
+	 */
+	public function showForm(Request $request, Response $response, array $args)
+	{	
+		// Get form data
+		$this->container->get('orm');
+		$form = \IFS\Models\CustomForm::with('form_elements')->findOrFail((int)$args['id']);
+		
+		// Return template
+		$response = $this->container->get('view')->render($response, "form_display.php", ['page_title' => 'Display Form',
+																																											'form' => $form
+			]);
+		return $response;
 	}
 	
 }
