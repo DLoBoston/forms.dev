@@ -106,8 +106,16 @@ class FormsSiteController {
 		
 			// Get user's submission
 			$form_elements = json_decode($parsedBody['form_elements']);
+			
+			// Store form element IDs. Used to determine what elements have been removed.
+			foreach ($form_elements as $form_element) :
+				$form_element_ids[] = $form_element->id;
+			endforeach;
+			
+			// Delete any elements that have been removed. Must come before adds/updates.
+			$form->form_elements()->whereNotIn('form_element_id', $form_element_ids)->delete();
 		
-			// Loop through each element
+			// Loop through each element in submission
 			foreach ($form_elements as $form_element) :
 
 				// If there is an ID, setup a form element object from an existing model in the database
@@ -124,8 +132,6 @@ class FormsSiteController {
 				$form->form_elements()->save($tmpFormElement);
 
 			endforeach;
-			
-			// TODO Remove any records that are no longer present in the current submission
 		
 		// Redirect to home
 		redirect_to('/');
