@@ -20,7 +20,8 @@ class SelectElement extends FormElement
 	public function getHtml($element)
 	{
 		$html =		'<label>' . $element->label . '</label>'
-						.	'<input type="checkbox" name="" value="">';
+						.	'<select>'
+						.	'</select>';
 		return $html;
 	}
 }
