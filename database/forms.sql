@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `form_elements` (
   `form_id` int(11) NOT NULL,
   `type` varchar(50) NOT NULL,
   `label` varchar(50) NOT NULL,
+  `order` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `required` char(1) NOT NULL DEFAULT 'f',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
