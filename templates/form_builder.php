@@ -11,6 +11,8 @@
 		<div class="form-group">
 			<input type="text" name="name" value="<?= $form['name']; ?>">
 		</div>
+		
+		<div id="form-elements"></div>
 			
 		<div class="form-group">
 			<button id="btnAddElement" type="button">Add Element</button>

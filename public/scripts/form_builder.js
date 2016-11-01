@@ -8,16 +8,18 @@ $(document).ready(function() {
     //// CUSTOM OBJECTS ------------------------------------
     
     // Form Element
-    var FormElement = function (id, type, label) {
+    var FormElement = function (id, type, order, label) {
       this.id = id;
       this.type = type;
+      this.order = order;
       this.label = label;
     };
       // Method associated with FormElement to get generic form element HTML
-      FormElement.prototype.getGenericHtml = function(id = '', type = '', label = '') {
+      FormElement.prototype.getGenericHtml = function(id = '', type = '', order = 0, label = '') {
         return '<div class="form-group">' +
                   '<div data-form-element-id="' + id + '"' +
                        'data-form-element-type="' + type + '"' +
+                       'data-form-element-order="' + order + '"' +
                        'data-form-element-label="' + label + '">' +
                      label +
                      ' | <a data-form-element-action="delete">delete</a>' +
@@ -31,6 +33,7 @@ $(document).ready(function() {
     for (var i = 0; i < current_form_data.elements.length; i++) {
       addFormElement(current_form_data.elements[i].form_element_id,
                         current_form_data.elements[i].type,
+                        current_form_data.elements[i].order,
                         current_form_data.elements[i].label);
     };
 
@@ -50,18 +53,31 @@ $(document).ready(function() {
       $("div[data-form-element-id]").each(function() {
         form_elements.push(new FormElement($(this).data("form-element-id"),
                                             $(this).data("form-element-type"),
+                                            $(this).data("form-element-order"),
                                             $(this).data("form-element-label")));
       });
       // JSON encode and place in hidden var
       $("input[name='form_elements']").val(JSON.stringify(form_elements));
     });
+		
+		// Make form-elements container sortable
+		$("#form-elements").sortable({
+			stop: function(event, ui) {
+				// Reset order attribute on all elements based on new position
+				var i = 0;
+				$("div[data-form-element-id]").each(function() {
+					$(this).data("form-element-order", i);
+					i++;
+				});
+			}
+		});
     
     //// FUNCTIONS ------------------------------------
     
     // Function to add a new form element to the DOM
-    function addFormElement(id = '', type = 'text', label = 'NEW ELEMENT') {
+    function addFormElement(id = '', type = 'text', order = 0, label = 'NEW ELEMENT') {
       // Add generic form element html to dom
-      $("#btnAddElement").parent().before(FormElement.prototype.getGenericHtml(id, type, label));
+      $("#form-elements").append(FormElement.prototype.getGenericHtml(id, type, order, label));
       // Add delete link event handler
       $("a[data-form-element-action='delete']").last().click(event, handlerFormElementDeleteLink);
     }
@@ -75,14 +91,3 @@ $(document).ready(function() {
     }
 	
 });
-
-
-//      // Remove element from javascript storage
-//      for (var i = 0; i < form_elements.length; i++) {
-//        if (form_elements[i].id === $(this).parent().data("form-element-id")) {
-//          form_elements.splice(i,1);
-//        }
-//      }
-
-//      // Add element to javascript storage
-//      form_elements.push(new FormElement(id, type, label));

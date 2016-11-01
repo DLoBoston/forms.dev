@@ -133,6 +133,7 @@ class FormsSiteController {
 				// Update form element object with user submission and save
 				$tmpFormElement->type = $form_element->type;
 				$tmpFormElement->label = $form_element->label;
+				$tmpFormElement->order = $form_element->order;
 				$form->form_elements()->save($tmpFormElement);
 
 			endforeach;
