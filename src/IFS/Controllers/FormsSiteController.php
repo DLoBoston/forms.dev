@@ -58,7 +58,11 @@ class FormsSiteController {
 		$form = null;
 		if (!empty($args)) :
 			$this->container->get('orm');
-			$form = \IFS\Models\CustomForm::with('form_elements')->findOrFail((int)$args['id']);
+			$form = \IFS\Models\CustomForm::with(['form_elements' => function($query)
+								{
+									$query->orderBy('order', 'asc');
+								}])
+								->findOrFail((int)$args['id']);
 		endif;
 		
 		// Initialize builder data
@@ -191,7 +195,11 @@ class FormsSiteController {
 	{	
 		// Get form data
 		$this->container->get('orm');
-		$form = \IFS\Models\CustomForm::with('form_elements')->findOrFail((int)$args['id']);
+		$form = \IFS\Models\CustomForm::with(['form_elements' => function($query)
+								{
+									$query->orderBy('order', 'asc');
+								}])
+								->findOrFail((int)$args['id']);
 		
 		// Return template
 		$response = $this->container->get('view')->render($response, "form_display.php", ['page_title' => 'Display Form',
