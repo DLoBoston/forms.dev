@@ -11,12 +11,16 @@ namespace IFS\Models;
 class TextElement extends FormElement
 {
 	/**
-	 * Return generic text input HTML.
+	 * Returns HTML for text input.
 	 * 
+	 * @param \IFS\Models\FormElement $element Generic form element representation
+	 * of a user-specified form element associated with a specific form.
 	 * @return string
 	 */
-	public function getHtml()
+	public function getHtml($element)
 	{
-		return '<input type="text" name="" value="">';
+		$html = '<label>' . $element->label . '</label>'
+						. '<input type="text" name="" value="">';
+		return $html;
 	}
 }

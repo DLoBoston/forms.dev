@@ -13,7 +13,7 @@
 			foreach ($form->form_elements as $element) :
 				$tmpElement = \IFS\Models\FormElement::makeElement($element->type);
 				echo '<div class="form-group">';
-					echo $tmpElement->getHtml();
+					echo $tmpElement->getHtml($element);
 				echo '</div>';
 			endforeach;
 		?>

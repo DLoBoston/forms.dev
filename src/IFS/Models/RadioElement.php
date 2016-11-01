@@ -11,12 +11,18 @@ namespace IFS\Models;
 class RadioElement extends FormElement
 {
 	/**
-	 * Return generic text input HTML.
+	 * Returns HTML for radio input.
 	 * 
+	 * @param \IFS\Models\FormElement $element Generic form element representation
+	 * of a user-specified form element associated with a specific form.
 	 * @return string
 	 */
-	public function getHtml()
+	public function getHtml($element)
 	{
-		return '<input type="radio">';
+		$html =		'<p>' . $element->label . '</p>'
+						.	'<label>'
+						.		'<input type="radio" name="" value="">'
+						. '</label>';
+		return $html;
 	}
 }

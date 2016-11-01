@@ -11,12 +11,16 @@ namespace IFS\Models;
 class SelectElement extends FormElement
 {
 	/**
-	 * Return generic text input HTML.
+	 * Returns HTML for select input.
 	 * 
+	 * @param \IFS\Models\FormElement $element Generic form element representation
+	 * of a user-specified form element associated with a specific form.
 	 * @return string
 	 */
-	public function getHtml()
+	public function getHtml($element)
 	{
-		return '<select></select>';
+		$html =		'<label>' . $element->label . '</label>'
+						.	'<input type="checkbox" name="" value="">';
+		return $html;
 	}
 }

@@ -11,12 +11,16 @@ namespace IFS\Models;
 class TextAreaElement extends FormElement
 {
 	/**
-	 * Return generic text input HTML.
+	 * Return HTML for textarea input.
 	 * 
+	 * @param \IFS\Models\FormElement $element Generic form element representation
+	 * of a user-specified form element associated with a specific form.
 	 * @return string
 	 */
-	public function getHtml()
+	public function getHtml($element)
 	{
-		return '<textarea></textarea>';
+		$html =		'<label>' . $element->label . '</label>'
+						. '<textarea></textarea>';
+		return $html;
 	}
 }
