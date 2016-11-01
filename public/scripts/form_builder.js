@@ -16,15 +16,16 @@ $(document).ready(function() {
     };
       // Method associated with FormElement to get generic form element HTML
       FormElement.prototype.getGenericHtml = function(id = '', type = '', order = 0, label = '') {
-        return '<div class="form-group">' +
-                  '<div data-form-element-id="' + id + '"' +
-                       'data-form-element-type="' + type + '"' +
-                       'data-form-element-order="' + order + '"' +
-                       'data-form-element-label="' + label + '">' +
-                     label +
-                     ' | <a data-form-element-action="delete">delete</a>' +
-                  '</div>' +
-                '</div>';
+        return		'<div class="form-group">'
+								+		'<div data-form-element-id="' + id + '"'
+								+			'data-form-element-type="' + type + '"'
+								+			'data-form-element-order="' + order + '"'
+								+			'data-form-element-label="' + label + '">'
+								+				label
+								+				' (' + type + ')'
+								+			' | <a data-form-element-action="delete">delete</a>'
+								+		'</div>'
+								+	'</div>';
       };
     
     //// ONLOAD EVENTS ------------------------------------
