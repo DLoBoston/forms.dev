@@ -11,14 +11,9 @@
 		
 		<?php
 			foreach ($form->form_elements as $element) :
+				$tmpElement = \IFS\Models\FormElement::makeElement($element->type);
 				echo '<div class="form-group">';
-					echo '<div data-form-element-id="' . $element->form_element_id . '"'
-									. 'data-form-element-type="' . $element->type . '"'
-									. 'data-form-element-label="' . $element->label . '"'
-									. '>';
-						echo $element->label . ' ' . $element->type;
-						echo ' | <a data-form-element-action="delete">delete</a>';
-					echo '</div>';
+					echo $tmpElement->getHtml();
 				echo '</div>';
 			endforeach;
 		?>
