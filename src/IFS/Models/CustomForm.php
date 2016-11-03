@@ -1,7 +1,7 @@
 <?php
 /**
  * Custom form model.
- * @author Digital D.Lo <WebDevDLo@gmaiil.com>
+ * @author dennis <dennis@ifscore.com>
  */
 namespace IFS\Models;
 
