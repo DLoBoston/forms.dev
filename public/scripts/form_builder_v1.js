@@ -38,7 +38,7 @@ $(document).ready(function() {
                         current_form_data.elements[i].label);
     };
 
-    // Setup handler - add form element button
+    // Setup handler - form element toolbox buttons
     $("#element-toolbox").children("button").click(function() {
       addFormElement(id = '', type = $(this).data("form-element-type"));
     });
@@ -46,6 +46,16 @@ $(document).ready(function() {
     // Setup handler - form delete button. Adds hidden field and then submits form
     $("#btnDelete").click(function() {
       $("#frmBuilder").prepend('<input type="hidden" name="_METHOD" value="DELETE"/>').submit();
+    });
+
+    // Setup handler - clicking on form elements
+		$("div[data-form-element-id]").click(function() {
+      $("aside#element-properties").show();
+    });
+
+    // Setup handler - Clicking on any DOM element other than "form elements" clears the property window
+		$("form").children().not("div#form-elements").click(function() {
+      $("aside#element-properties").hide();
     });
 
     // Setup handler - on builder submission. Serialize form_elements and store in hidden field to send back in request for processing

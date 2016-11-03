@@ -1,7 +1,7 @@
 
 <?php include 'partials/html_header.php'; ?>
 
-<body>
+<body class="form_builder">
   
 	<?php include 'partials/header.php'; ?>
 	
@@ -33,12 +33,17 @@
 				endforeach;
 			?>
 	</aside>
+	
+	<!-- Element Properties Toolbox -->
+	<aside id="element-properties">
+		<p>Element Properties</p>
+	</aside>
   
   <!-- Pass through current form data to javascript -->
   <script>
     var passthrough_form_data = <?php echo json_encode($form); ?>;
   </script>
 	
-	<?php $page_scripts[] = '<script src="/scripts/form_builder.js"></script>'; ?>
+	<?php $page_scripts[] = '<script src="/scripts/form_builder_v1.js"></script>'; ?>
 
 <?php include 'partials/html_footer.php';

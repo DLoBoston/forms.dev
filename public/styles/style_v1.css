@@ -1,0 +1,10 @@
+/*
+	Basic stylesheet
+	Created on : Nov 3, 2016, 2:11:01 PM
+	Author     : Dennis
+*/
+/* TODO convert to SASS */
+
+body.form_builder aside#element-properties {
+	display: none;
+}
