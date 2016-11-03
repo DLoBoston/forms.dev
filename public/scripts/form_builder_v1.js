@@ -40,7 +40,10 @@ $(document).ready(function() {
 
     // Setup handler - form element toolbox buttons
     $("#element-toolbox").children("button").click(function() {
-      addFormElement(id = '', type = $(this).data("form-element-type"));
+			// Initialize order value by getting length of existing elements and adding 1
+			order = ++$("div[data-form-element-id]").length;
+			// Add form element to DOM
+      addFormElement('', $(this).data("form-element-type"), order, 'NEW LABEL', '', 'f');
     });
 
     // Setup handler - form delete button. Adds hidden field and then submits form
@@ -74,12 +77,8 @@ $(document).ready(function() {
 		// Make form-elements container sortable
 		$("#form-elements").sortable({
 			stop: function(event, ui) {
-				// Reset order attribute on all elements based on new position
-				var i = 0;
-				$("div[data-form-element-id]").each(function() {
-					$(this).data("form-element-order", i);
-					i++;
-				});
+				// Reset order attribute on all form elements
+				resetOrderAttributeOnFormElements();
 			}
 		});
     
@@ -93,12 +92,23 @@ $(document).ready(function() {
       $("a[data-form-element-action='delete']").last().click(event, handlerFormElementDeleteLink);
     }
     
+    // Function to reset the order attribute on all form elements given their position in the DOM
+    function resetOrderAttributeOnFormElements() {
+			var i = 1;
+			$("div[data-form-element-id]").each(function() {
+				$(this).data("form-element-order", i);
+				i++;
+			});
+    }
+    
     // Function to setup delete element link
     function handlerFormElementDeleteLink(event) {
       // Prevent default link action
       event.preventDefault();
       // Remove element from DOM
       $(this).parent().remove();
+			// Reset order attribute on all form elements
+			resetOrderAttributeOnFormElements();
     }
 	
 });
