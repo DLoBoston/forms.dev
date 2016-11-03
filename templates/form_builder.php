@@ -15,10 +15,6 @@
 		<div id="form-elements"></div>
 			
 		<div class="form-group">
-			<button id="btnAddElement" type="button">Add Element</button>
-		</div>
-			
-		<div class="form-group">
 			<button type="submit"><?php echo ($form['form_id']) ? 'Update' : 'Create'; ?></button>
 		</div>
 			
@@ -27,6 +23,16 @@
 		</div>
 		
 	</form>
+	
+	<!-- Add Element Toolbox -->
+	<aside id="element-toolbox">
+		<p>Add Element</p>
+			<?php
+				foreach ($global_vars['form_element_types'] as $element_type) :
+					echo '<button type="button" data-form-element-type="' . $element_type . '">' . $element_type . '</button>';
+				endforeach;
+			?>
+	</aside>
   
   <!-- Pass through current form data to javascript -->
   <script>

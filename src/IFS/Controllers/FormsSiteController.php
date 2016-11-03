@@ -74,7 +74,8 @@ class FormsSiteController {
 		// Return template
 		$response = $this->container->get('view')->render($response, "form_builder.php", ['page_title' => 'Form Builder',
 																																											'route' => $uri->getPath(),
-																																											'form' => $form_data
+																																											'form' => $form_data,
+																																											'global_vars' => $this->container->get('global_vars')
 			]);
 		return $response;
 	}

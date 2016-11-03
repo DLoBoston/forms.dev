@@ -39,8 +39,8 @@ $(document).ready(function() {
     };
 
     // Setup handler - add form element button
-    $("#btnAddElement").click(function() {
-      addFormElement();
+    $("#element-toolbox").children("button").click(function() {
+      addFormElement(id = '', type = $(this).data("form-element-type"));
     });
 
     // Setup handler - form delete button. Adds hidden field and then submits form
