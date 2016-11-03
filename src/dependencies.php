@@ -2,7 +2,7 @@
 /**
  * Dependency container.
  * @link http://www.slimframework.com/docs/concepts/di.html
- * @author Digital D.Lo <WebDevDLo@gmaiil.com>
+ * @author dennis <dennis@ifscore.com>
  */
 
 $container = $app->getContainer();
@@ -20,4 +20,8 @@ $container['orm'] = function ($c) {
     $capsule->setAsGlobal();
     $capsule->bootEloquent();
     return $capsule;
+};
+$container['global_vars'] = function ($c) {
+    $global_vars = include 'globals.php';
+    return $global_vars;
 };

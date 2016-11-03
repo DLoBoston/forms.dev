@@ -1,7 +1,7 @@
 <?php
 
 // Set constants
-require '../src/globals.php';
+require '../src/functions.php';
 
 // Autoloaders
 require '../vendor/autoload.php';

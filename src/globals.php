@@ -1,17 +1,26 @@
 <?php
 /**
- * Sets constants and global functions.
- * @author Digital D.Lo <WebDevDLo@gmaiil.com>
+ * Global variables for injection into dependency container.
+ * @author dennis <dennis@ifscore.com>
  */
 
-/**
- * Convenience function to set header for redirect and then exit
- * @param string $location URL to redirect to
- */
-function redirect_to($location = null)
-{
-    if ($location != null) {
-        header("Location: {$location}");
-        exit;
-    }
-}
+return [
+				'form_element_types' => [
+						'single_line_text',
+						'lookup_value',
+						'textarea',
+						'checkboxes',
+						'radio buttons',
+						'dropdown',
+						'multi-select dropdown',
+						'date',
+						'matrix',
+						'image_upload',
+						'hidden_field',
+						'lookup_search',
+						'signature',
+						'section',
+						'descriptive_text'
+					]
+			];
+
