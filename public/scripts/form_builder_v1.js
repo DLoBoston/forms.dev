@@ -3,6 +3,7 @@ $(document).ready(function() {
     //// GLOBAL ------------------------------------
     
     var form_elements = [];
+		var current_form_element; // If applicable, what form element the user is working with
     var current_form_data = passthrough_form_data; // init_form_data comes from html template
     
     //// CUSTOM OBJECTS ------------------------------------
@@ -15,7 +16,7 @@ $(document).ready(function() {
       this.label = label;
       this.default_value = default_value;
       this.required = required;
-      this.required = guidelines;
+      this.guidelines = guidelines;
     };
       // Method associated with FormElement (as delineated by 'prototype') to get generic form element HTML
       FormElement.prototype.getGenericHtml = function(id, type, order, label, default_value, required, guidelines) {
@@ -43,8 +44,8 @@ $(document).ready(function() {
                         current_form_data.elements[i].order,
                         current_form_data.elements[i].label,
                         current_form_data.elements[i].default_value,
-                        current_form_data.elements[i].guidelines,
-                        current_form_data.elements[i].required);
+                        current_form_data.elements[i].required,
+                        current_form_data.elements[i].guidelines);
     };
 
     // Setup handler - form element toolbox buttons
@@ -52,7 +53,7 @@ $(document).ready(function() {
 			// Initialize order value by getting length of existing elements and adding 1
 			order = ++$("div[data-form-element-id]").length;
 			// Add form element to DOM
-      addFormElement('', $(this).data("form-element-type"), order, 'NEW LABEL', '', 'f', '');
+      addFormElement('', $(this).data("form-element-type"), order, 'NEW LABEL', '', 0, '');
     });
 
     // Setup handler - form delete button. Adds hidden field and then submits form
@@ -77,8 +78,8 @@ $(document).ready(function() {
                                             $(this).data("form-element-order"),
                                             $(this).data("form-element-label"),
                                             $(this).data("form-element-default-value"),
-                                            $(this).data("form-element-guidelines"),
-                                            $(this).data("form-element-required")));
+                                            $(this).data("form-element-required"),
+                                            $(this).data("form-element-guidelines")));
       });
       // JSON encode and place in hidden var
       $("input[name='form_elements']").val(JSON.stringify(form_elements));
@@ -91,6 +92,26 @@ $(document).ready(function() {
 				resetOrderAttributeOnFormElements();
 			}
 		});
+		
+		// Setup handler - Element properties toolbox - Label
+		$("#propertyLabel").keyup(function () {
+			$(current_form_element).data('form-element-label', $(this).val());
+		});
+		
+		// Setup handler - Element properties toolbox - Default value
+		$("#propertyDefaultValue").keyup(function () {
+			$(current_form_element).data('form-element-default-value', $(this).val());
+		});
+		
+		// Setup handler - Element properties toolbox - Guidelines
+		$("#propertyGuidelines").keyup(function () {
+			$(current_form_element).data('form-element-guidelines', $(this).val());
+		});
+		
+		// Setup handler - Element properties toolbox - Required
+		$("[name='propertyRequired']").change(function () {
+			$(current_form_element).data('form-element-required', $(this).prop('checked'));
+		});
     
     //// FUNCTIONS ------------------------------------
     
@@ -100,11 +121,16 @@ $(document).ready(function() {
       $("#form-elements").append(FormElement.prototype.getGenericHtml(id, type, order, label, default_value, required, guidelines))
 				.click(showFormElementProperties); // Add click handler
       // Add delete link event handler
-      $("a[data-form-element-action='delete']").last().click(event, handlerFormElementDeleteLink);
+      $("a[data-form-element-action='delete']").last().click(handlerFormElementDeleteLink);
     }
 		
 		// Function to show form element properties toolbox
-		function showFormElementProperties() {
+		function showFormElementProperties(event) {
+			current_form_element = event.target;
+			$("aside#element-properties").find("#propertyLabel").val($(current_form_element).data('form-element-label'));
+			$("aside#element-properties").find("#propertyDefaultValue").val($(current_form_element).data('form-element-default-value'));
+			$("aside#element-properties").find("#propertyGuidelines").val($(current_form_element).data('form-element-guidelines'));
+			$("aside#element-properties").find("[name='propertyRequired']").prop('checked', $(current_form_element).data('form-element-required'));
 			$("aside#element-properties").show();
 		}
     
