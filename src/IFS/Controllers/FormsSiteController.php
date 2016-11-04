@@ -135,6 +135,9 @@ class FormsSiteController {
 				$tmpFormElement->type = $form_element->type;
 				$tmpFormElement->label = $form_element->label;
 				$tmpFormElement->order = $form_element->order;
+				$tmpFormElement->required = $form_element->required;
+				$tmpFormElement->guidelines = $form_element->guidelines;
+				$tmpFormElement->default_value = $form_element->default_value;
 				$form->form_elements()->save($tmpFormElement);
 
 			endforeach;
