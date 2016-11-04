@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `form_elements` (
   `type` varchar(50) NOT NULL,
   `label` varchar(50) NOT NULL,
   `order` tinyint(3) unsigned NOT NULL DEFAULT '1',
-  `required` char(1) NOT NULL DEFAULT 'f',
+  `required` tinyint(1) NOT NULL DEFAULT '0',
   `guidelines` varchar(250) NOT NULL,
   `default_value` varchar(250) NOT NULL,
   `created_at` datetime NOT NULL,
