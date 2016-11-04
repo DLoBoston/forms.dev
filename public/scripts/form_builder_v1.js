@@ -96,6 +96,7 @@ $(document).ready(function() {
 		// Setup handler - Element properties toolbox - Label
 		$("#propertyLabel").keyup(function () {
 			$(current_form_element).data('form-element-label', $(this).val());
+			$(current_form_element).text($(this).val() + ' (' + $(current_form_element).data('form-element-type') + ') ');
 		});
 		
 		// Setup handler - Element properties toolbox - Default value
