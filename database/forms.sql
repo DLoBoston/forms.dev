@@ -39,13 +39,14 @@ CREATE TABLE IF NOT EXISTS `form_elements` (
   `label` varchar(50) NOT NULL,
   `order` tinyint(3) unsigned NOT NULL DEFAULT '1',
   `required` char(1) NOT NULL DEFAULT 'f',
-  `guidelines` varchar(250) DEFAULT NULL,
+  `guidelines` varchar(250) NOT NULL,
+  `default_value` varchar(250) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`form_element_id`),
   KEY `FK_form_element_account_form` (`form_id`),
   CONSTRAINT `FK_form_element_account_form` FOREIGN KEY (`form_id`) REFERENCES `custom_forms` (`form_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 -- Dumping structure for table forms.form_submissions
@@ -68,7 +69,7 @@ DROP TABLE IF EXISTS `form_submission_element_values`;
 CREATE TABLE IF NOT EXISTS `form_submission_element_values` (
   `submission_id` int(11) NOT NULL,
   `form_element_id` int(11) NOT NULL,
-  `value` varchar(50) DEFAULT NULL,
+  `value` varchar(250) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   KEY `form_element_id` (`form_element_id`,`submission_id`),
