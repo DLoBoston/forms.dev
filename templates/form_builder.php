@@ -37,6 +37,29 @@
 	<!-- Element Properties Toolbox -->
 	<aside id="element-properties">
 		<p>Element Properties</p>
+		<form>
+			
+			<div class="form-group">
+				<label for="propertyLabel">Label</label>
+				<input id="propertyLabel" type="text" value="">
+			</div>
+			
+			<div class="form-group">
+				<label for="propertyDefaultValue">Default Value</label>
+				<input id="propertyDefaultValue" type="text" value="">
+			</div>
+			
+			<div class="form-group">
+				<label><input type="checkbox" value="y" name="propertyRequired">Required</label>
+			</div>
+			
+			<div class="form-group">
+				<label for="propertyGuidelines">Guidelines</label>
+				<input id="propertyGuidelines" type="text" value="">
+			</div>
+			
+		</form>
+		
 	</aside>
   
   <!-- Pass through current form data to javascript -->

@@ -8,19 +8,25 @@ $(document).ready(function() {
     //// CUSTOM OBJECTS ------------------------------------
     
     // Form Element
-    var FormElement = function (id, type, order, label) {
+    var FormElement = function (id, type, order, label, default_value, required, guidelines) {
       this.id = id;
       this.type = type;
       this.order = order;
       this.label = label;
+      this.default_value = default_value;
+      this.required = required;
+      this.required = guidelines;
     };
-      // Method associated with FormElement to get generic form element HTML
-      FormElement.prototype.getGenericHtml = function(id = '', type = '', order = 0, label = '') {
+      // Method associated with FormElement (as delineated by 'prototype') to get generic form element HTML
+      FormElement.prototype.getGenericHtml = function(id, type, order, label, default_value, required, guidelines) {
         return		'<div class="form-group">'
 								+		'<div data-form-element-id="' + id + '"'
-								+			'data-form-element-type="' + type + '"'
-								+			'data-form-element-order="' + order + '"'
-								+			'data-form-element-label="' + label + '">'
+								+			' data-form-element-type="' + type + '"'
+								+			' data-form-element-order="' + order + '"'
+								+			' data-form-element-label="' + label + '"'
+								+			' data-form-element-default-value="' + default_value + '"'
+								+			' data-form-element-guidelines="' + guidelines + '"'
+								+			' data-form-element-required="' + required + '">'
 								+				label
 								+				' (' + type + ')'
 								+			' | <a data-form-element-action="delete">delete</a>'
@@ -35,7 +41,10 @@ $(document).ready(function() {
       addFormElement(current_form_data.elements[i].form_element_id,
                         current_form_data.elements[i].type,
                         current_form_data.elements[i].order,
-                        current_form_data.elements[i].label);
+                        current_form_data.elements[i].label,
+                        current_form_data.elements[i].default_value,
+                        current_form_data.elements[i].guidelines,
+                        current_form_data.elements[i].required);
     };
 
     // Setup handler - form element toolbox buttons
@@ -43,7 +52,7 @@ $(document).ready(function() {
 			// Initialize order value by getting length of existing elements and adding 1
 			order = ++$("div[data-form-element-id]").length;
 			// Add form element to DOM
-      addFormElement('', $(this).data("form-element-type"), order, 'NEW LABEL', '', 'f');
+      addFormElement('', $(this).data("form-element-type"), order, 'NEW LABEL', '', 'f', '');
     });
 
     // Setup handler - form delete button. Adds hidden field and then submits form
@@ -52,9 +61,7 @@ $(document).ready(function() {
     });
 
     // Setup handler - clicking on form elements
-		$("div[data-form-element-id]").click(function() {
-      $("aside#element-properties").show();
-    });
+		$("div[data-form-element-id]").click(showFormElementProperties);
 
     // Setup handler - Clicking on any DOM element other than "form elements" clears the property window
 		$("form").children().not("div#form-elements").click(function() {
@@ -68,7 +75,10 @@ $(document).ready(function() {
         form_elements.push(new FormElement($(this).data("form-element-id"),
                                             $(this).data("form-element-type"),
                                             $(this).data("form-element-order"),
-                                            $(this).data("form-element-label")));
+                                            $(this).data("form-element-label"),
+                                            $(this).data("form-element-default-value"),
+                                            $(this).data("form-element-guidelines"),
+                                            $(this).data("form-element-required")));
       });
       // JSON encode and place in hidden var
       $("input[name='form_elements']").val(JSON.stringify(form_elements));
@@ -85,12 +95,18 @@ $(document).ready(function() {
     //// FUNCTIONS ------------------------------------
     
     // Function to add a new form element to the DOM
-    function addFormElement(id = '', type = 'text', order = 0, label = 'NEW ELEMENT') {
+    function addFormElement(id, type, order, label, default_value, required, guidelines) {
       // Add generic form element html to dom
-      $("#form-elements").append(FormElement.prototype.getGenericHtml(id, type, order, label));
+      $("#form-elements").append(FormElement.prototype.getGenericHtml(id, type, order, label, default_value, required, guidelines))
+				.click(showFormElementProperties); // Add click handler
       // Add delete link event handler
       $("a[data-form-element-action='delete']").last().click(event, handlerFormElementDeleteLink);
     }
+		
+		// Function to show form element properties toolbox
+		function showFormElementProperties() {
+			$("aside#element-properties").show();
+		}
     
     // Function to reset the order attribute on all form elements given their position in the DOM
     function resetOrderAttributeOnFormElements() {
