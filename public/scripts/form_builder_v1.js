@@ -53,7 +53,7 @@ $(document).ready(function() {
 			// Initialize order value by getting length of existing elements and adding 1
 			order = ++$("div[data-form-element-id]").length;
 			// Add form element to DOM
-      addFormElement('', $(this).data("form-element-type"), order, 'NEW LABEL', '', 0, '');
+      addFormElement('', $(this).data("form-element-type"), order, 'NEW ELEMENT', '', 0, '');
     });
 
     // Setup handler - form delete button. Adds hidden field and then submits form
