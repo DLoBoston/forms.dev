@@ -64,7 +64,7 @@ $(document).ready(function() {
 		$("div[data-form-element-id]").click(showFormElementProperties);
 
     // Setup handler - Clicking on any DOM element other than "form elements" clears the property window
-		$("form").children().not("div#form-elements").click(function() {
+		$("#frmBuilder").children().not("div#form-elements").click(function() {
       $("aside#element-properties").hide();
     });
 
