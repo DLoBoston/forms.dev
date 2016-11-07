@@ -205,10 +205,14 @@ class FormsSiteController {
 									$query->orderBy('order', 'asc');
 								}])
 								->findOrFail((int)$args['id']);
+								
+		// Get URI object for route to be passed to template
+		$uri = $request->getUri();
 		
 		// Return template
 		$response = $this->container->get('view')->render($response, "form_display.php", ['page_title' => 'Display Form',
-																																											'form' => $form
+																																											'form' => $form,
+																																											'route' => $uri->getPath()
 			]);
 		return $response;
 	}

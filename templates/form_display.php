@@ -7,7 +7,7 @@
   
 	<h3><?= $form->name; ?></h3>
 	
-	<form>
+	<form id="frm<?= $form->form_id; ?>" action="<?= htmlspecialchars($route, ENT_QUOTES, "utf-8"); ?>" method="post">
 		
 		<?php
 			foreach ($form->form_elements as $element) :
@@ -17,6 +17,10 @@
 				echo '</div>';
 			endforeach;
 		?>
+			
+		<div class="form-group">
+			<button type="submit">Submit</button>
+		</div>
 		
 	</form>
 
