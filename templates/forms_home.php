@@ -14,8 +14,9 @@
 			foreach ($all_forms as $form) :
 				echo '<li>' . $form->name;
 					echo '<ul>';
-						echo '<li><a href="/display/' . $form->form_id . '">display</a></li>';
-						echo '<li><a href="/builder/' . $form->form_id . '">edit</a></li>';
+						echo '<li><a href="/builder/' . $form->form_id . '">Edit Form</a></li>';
+						echo '<li><a href="/display/' . $form->form_id . '">Show Form</a></li>';
+						echo '<li><a href="/submissions/' . $form->form_id . '">Show Submissions</a></li>';
 					echo '</ul>';
 				echo '</li>';
 			endforeach;

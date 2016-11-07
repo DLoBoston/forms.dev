@@ -213,4 +213,19 @@ class FormsSiteController {
 		return $response;
 	}
 	
+	/**
+	 * Show submissions associated with a specific form.
+	 * 
+	 * @param \Slim\Http\Request $request PSR-7 Request
+	 * @param \Slim\Http\Response $response PSR-7 Response
+	 * @param array $args Named placeholders from the URL
+	 * @return \Slim\Http\Response $response PSR-7 Response
+	 */
+	public function showSubmissions(Request $request, Response $response, array $args)
+	{	
+		// Return template
+		$response = $this->container->get('view')->render($response, "form_submissions.php", ['page_title' => 'Form Submissions']);
+		return $response;
+	}
+	
 }
