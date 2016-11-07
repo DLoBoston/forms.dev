@@ -28,10 +28,10 @@ $(document).ready(function() {
 								+			' data-form-element-default-value="' + default_value + '"'
 								+			' data-form-element-guidelines="' + guidelines + '"'
 								+			' data-form-element-required="' + required + '">'
-								+				label
-								+				' (' + type + ')'
-								+			' | <a data-form-element-action="delete">delete</a>'
+								+			'<p><span class="element-label">' + label + '</span>'
+								+					'<span class="element-type"> (' + type + ')</span></p>'
 								+		'</div>'
+								+		'<p><a data-form-element-action="delete">delete</a></p>'
 								+	'</div>';
       };
     
@@ -50,7 +50,7 @@ $(document).ready(function() {
 
     // Setup handler - form element toolbox buttons
     $("#element-toolbox").children("button").click(function() {
-			// Initialize order value by getting length of existing elements and adding 1
+			// Get next order value by getting length of existing elements and adding 1
 			order = ++$("div[data-form-element-id]").length;
 			// Add form element to DOM
       addFormElement('', $(this).data("form-element-type"), order, 'NEW ELEMENT', '', 0, '');
@@ -61,13 +61,10 @@ $(document).ready(function() {
       $("#frmBuilder").prepend('<input type="hidden" name="_METHOD" value="DELETE"/>').submit();
     });
 
-    // Setup handler - clicking on form elements
-		$("div[data-form-element-id]").click(showFormElementProperties);
-
     // Setup handler - Clicking on any DOM element other than "form elements" clears the property window
-		$("#frmBuilder").children().not("div#form-elements").click(function() {
-      $("aside#element-properties").hide();
-    });
+		temp = $("#frmBuilder").children().not("#form-elements").click(function(event) {
+			$("aside#element-properties").hide();
+		});
 
     // Setup handler - on builder submission. Serialize form_elements and store in hidden field to send back in request for processing
     $("#frmBuilder").submit(function(event) {
@@ -93,23 +90,23 @@ $(document).ready(function() {
 			}
 		});
 		
-		// Setup handler - Element properties toolbox - Label
+		// Setup handler - Element properties toolbox - Update label display and value
 		$("#propertyLabel").keyup(function () {
 			$(current_form_element).data('form-element-label', $(this).val());
-			$(current_form_element).text($(this).val() + ' (' + $(current_form_element).data('form-element-type') + ') ');
+			$(current_form_element).find("span.element-label").text($(this).val()); // Update label displayed to user
 		});
 		
-		// Setup handler - Element properties toolbox - Default value
+		// Setup handler - Element properties toolbox - Update default value
 		$("#propertyDefaultValue").keyup(function () {
 			$(current_form_element).data('form-element-default-value', $(this).val());
 		});
 		
-		// Setup handler - Element properties toolbox - Guidelines
+		// Setup handler - Element properties toolbox - Update guidelines value
 		$("#propertyGuidelines").keyup(function () {
 			$(current_form_element).data('form-element-guidelines', $(this).val());
 		});
 		
-		// Setup handler - Element properties toolbox - Required
+		// Setup handler - Element properties toolbox - Update required value
 		$("[name='propertyRequired']").change(function () {
 			$(current_form_element).data('form-element-required', $(this).prop('checked'));
 		});
@@ -119,15 +116,16 @@ $(document).ready(function() {
     // Function to add a new form element to the DOM
     function addFormElement(id, type, order, label, default_value, required, guidelines) {
       // Add generic form element html to dom
-      $("#form-elements").append(FormElement.prototype.getGenericHtml(id, type, order, label, default_value, required, guidelines))
-				.click(showFormElementProperties); // Add click handler
+      $("#form-elements").append(FormElement.prototype.getGenericHtml(id, type, order, label, default_value, required, guidelines));
+      // Add show form element properties event handler
+      $("div[data-form-element-id]").last().click(showFormElementProperties);
       // Add delete link event handler
       $("a[data-form-element-action='delete']").last().click(handlerFormElementDeleteLink);
     }
 		
 		// Function to show form element properties toolbox
 		function showFormElementProperties(event) {
-			current_form_element = event.target;
+			current_form_element = $(event.target).closest("div[data-form-element-id]");
 			$("aside#element-properties").find("#propertyLabel").val($(current_form_element).data('form-element-label'));
 			$("aside#element-properties").find("#propertyDefaultValue").val($(current_form_element).data('form-element-default-value'));
 			$("aside#element-properties").find("#propertyGuidelines").val($(current_form_element).data('form-element-guidelines'));
@@ -149,7 +147,9 @@ $(document).ready(function() {
       // Prevent default link action
       event.preventDefault();
       // Remove element from DOM
-      $(this).parent().remove();
+      $(this).closest("div.form-group").remove();
+			// Hide Element Properties Toolbox
+			$("aside#element-properties").hide();
 			// Reset order attribute on all form elements
 			resetOrderAttributeOnFormElements();
     }
