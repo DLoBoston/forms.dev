@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `custom_forms` (
   `updated_at` datetime NOT NULL,
   `updated_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`form_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 -- Dumping structure for table forms.form_elements
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `form_elements` (
   PRIMARY KEY (`form_element_id`),
   KEY `FK_form_element_account_form` (`form_id`),
   CONSTRAINT `FK_form_element_account_form` FOREIGN KEY (`form_id`) REFERENCES `custom_forms` (`form_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
 -- Dumping structure for table forms.form_submissions
@@ -61,21 +61,23 @@ CREATE TABLE IF NOT EXISTS `form_submissions` (
   PRIMARY KEY (`submission_id`),
   KEY `FK_form_submission_account_form` (`form_id`),
   CONSTRAINT `FK_form_submission_account_form` FOREIGN KEY (`form_id`) REFERENCES `custom_forms` (`form_id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
--- Dumping structure for table forms.form_submission_element_values
-DROP TABLE IF EXISTS `form_submission_element_values`;
-CREATE TABLE IF NOT EXISTS `form_submission_element_values` (
+-- Dumping structure for table forms.form_submission_values
+DROP TABLE IF EXISTS `form_submission_values`;
+CREATE TABLE IF NOT EXISTS `form_submission_values` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `submission_id` int(11) NOT NULL,
   `form_element_id` int(11) NOT NULL,
   `value` varchar(250) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  KEY `form_element_id` (`form_element_id`,`submission_id`),
-  KEY `FK_form_submission_element_value_form_submission` (`submission_id`),
-  CONSTRAINT `FK_form_submission_element_value_form_element` FOREIGN KEY (`form_element_id`) REFERENCES `form_elements` (`form_element_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_form_submission_element_value_form_submission` FOREIGN KEY (`submission_id`) REFERENCES `form_submissions` (`submission_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`id`),
+  KEY `FK_form_submission_values_form_elements` (`form_element_id`),
+  KEY `FK_form_submission_values_form_submissions` (`submission_id`),
+  CONSTRAINT `FK_form_submission_values_form_elements` FOREIGN KEY (`form_element_id`) REFERENCES `form_elements` (`form_element_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_form_submission_values_form_submissions` FOREIGN KEY (`submission_id`) REFERENCES `form_submissions` (`submission_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Data exporting was unselected.
