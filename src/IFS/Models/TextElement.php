@@ -19,8 +19,8 @@ class TextElement extends FormElement
 	 */
 	public function getHtml($element)
 	{
-		$html =		'<label>' . $element->label . '</label> .'
-						. '<input type="text" name="" value="">';
+		$html =		'<label for="form_element_' . $element->form_element_id . '">' . $element->label . '</label>' . PHP_EOL
+						. '<input id="form_element_' . $element->form_element_id . '" type="text" name="" value="">';
 		return $html;
 	}
 }

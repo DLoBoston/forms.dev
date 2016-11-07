@@ -19,7 +19,7 @@ class TextAreaElement extends FormElement
 	 */
 	public function getHtml($element)
 	{
-		$html =		'<label>' . $element->label . '</label>'
+		$html =		'<label>' . $element->label . '</label>' . PHP_EOL
 						. '<textarea></textarea>';
 		return $html;
 	}
