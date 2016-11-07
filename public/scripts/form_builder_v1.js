@@ -56,9 +56,12 @@ $(document).ready(function() {
       addFormElement('', $(this).data("form-element-type"), order, 'NEW ELEMENT', '', 0, '');
     });
 
-    // Setup handler - form delete button. Adds hidden field and then submits form
+    // Setup handler - form delete button. After confirmation, adds hidden field and submits form
     $("#btnDelete").click(function() {
-      $("#frmBuilder").prepend('<input type="hidden" name="_METHOD" value="DELETE"/>').submit();
+			if (confirm("Are you sure you want to delete this form?")) {
+				$("#frmBuilder").prepend('<input type="hidden" name="_METHOD" value="DELETE"/>')
+					.submit();
+			}
     });
 
     // Setup handler - Clicking on any DOM element other than "form elements" clears the property window
