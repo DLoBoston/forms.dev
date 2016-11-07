@@ -8,3 +8,16 @@
 body.form_builder aside#element-properties {
 	display: none;
 }
+
+body.form_builder form#frmBuilder {
+	border: 1px solid black;
+	width: 50%;
+}
+
+body.form_builder div#form-elements div.form-group {
+	border: 1px solid blue;
+}
+
+body.form_builder div#form-elements div[data-form-element-id] {
+	border: 1px dashed red;
+}
