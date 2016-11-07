@@ -149,12 +149,15 @@ $(document).ready(function() {
     function handlerFormElementDeleteLink(event) {
       // Prevent default link action
       event.preventDefault();
-      // Remove element from DOM
-      $(this).closest("div.form-group").remove();
-			// Hide Element Properties Toolbox
-			$("aside#element-properties").hide();
-			// Reset order attribute on all form elements
-			resetOrderAttributeOnFormElements();
+			// Confirm delete
+			if (confirm("Are you sure you want to delete " + $(this).closest("div.form-group").find("div[data-form-element-id]").data("form-element-label") + "?")) {
+				// Remove element from DOM
+				$(this).closest("div.form-group").remove();
+				// Hide Element Properties Toolbox
+				$("aside#element-properties").hide();
+				// Reset order attribute on all form elements
+				resetOrderAttributeOnFormElements();
+			}
     }
 	
 });
