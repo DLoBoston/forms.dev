@@ -38,15 +38,17 @@ $(document).ready(function() {
     //// ONLOAD EVENTS ------------------------------------
 
     // Display current form elements
-    for (var i = 0; i < current_form_data.elements.length; i++) {
-      addFormElement(current_form_data.elements[i].form_element_id,
-                        current_form_data.elements[i].type,
-                        current_form_data.elements[i].order,
-                        current_form_data.elements[i].label,
-                        current_form_data.elements[i].default_value,
-                        current_form_data.elements[i].required,
-                        current_form_data.elements[i].guidelines);
-    };
+		if (current_form_data.elements) {
+			for (var i = 0; i < current_form_data.elements.length; i++) {
+				addFormElement(current_form_data.elements[i].form_element_id,
+													current_form_data.elements[i].type,
+													current_form_data.elements[i].order,
+													current_form_data.elements[i].label,
+													current_form_data.elements[i].default_value,
+													current_form_data.elements[i].required,
+													current_form_data.elements[i].guidelines);
+			};
+		}
 
     // Setup handler - form element toolbox buttons
     $("#element-toolbox").children("button").click(function() {
