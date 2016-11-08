@@ -90,7 +90,7 @@ class FormsSiteController {
 	public function processBuilderSubmission(Request $request, Response $response, $args)
 	{
 		// Get submitted data
-		$parsedBody = $request->getParsedBody();
+		$data = $request->getParsedBody();
 		
 		// Connect to ORM
 		$this->container->get('orm');
@@ -104,13 +104,13 @@ class FormsSiteController {
 		endif;
 		
 		// Update form object with user submission and save
-		$form->name = $parsedBody['name'];
+		$form->name = $data['name'];
 		$form->save();
     
 		// Update form elements associated with form
 		
 			// Get user's submission
-			$form_elements = json_decode($parsedBody['form_elements']);
+			$form_elements = json_decode($data['form_elements']);
 			
 			// Store form element IDs. Used to determine what elements have been removed.
 			foreach ($form_elements as $form_element) :
