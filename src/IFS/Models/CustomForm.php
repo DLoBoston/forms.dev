@@ -25,6 +25,14 @@ class CustomForm extends Model
 	}
 	
 	/**
+	 * Eloquent function to get the form submissions for a specific form.
+	 */
+	public function form_submissions()
+	{
+			return $this->hasMany('IFS\Models\FormSubmission', 'form_id');
+	}
+	
+	/**
 	 * Initializes the vars for form display in Builder. Overwrite with optionally passed in data.
 	 * 
 	 * @param \IFS\Models\CustomForm $form Custom form.
