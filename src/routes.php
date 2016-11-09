@@ -14,4 +14,4 @@ $app->delete('/builder/{id}', '\IFS\Controllers\FormsSiteController:deleteForm')
 $app->get('/display/{id}', '\IFS\Controllers\FormsSiteController:showForm');
 $app->post('/display/{id}', '\IFS\Controllers\FormsSiteController:processFormSubmission');
 
-$app->get('/submissions/{id}', '\IFS\Controllers\FormsSiteController:showSubmissions');
+$app->get('/submissions/', '\IFS\Controllers\FormsSiteController:showSubmissions');
