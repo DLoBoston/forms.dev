@@ -189,11 +189,12 @@ class FormsSiteController {
 	}
 	
 	/**
-	 * Display custom form. Suitable for user input.
+	 * Display custom form. Used for creating and updating end-user submissions.
 	 * 
 	 * @param \Slim\Http\Request $request PSR-7 Request
 	 * @param \Slim\Http\Response $response PSR-7 Response
 	 * @param array $args Named placeholders from the URL
+	 * @param int $submission_id Query string parameter if a submission is being updated.
 	 * @return \Slim\Http\Response $response PSR-7 Response
 	 */
 	public function showForm(Request $request, Response $response, array $args)
