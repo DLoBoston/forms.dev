@@ -125,7 +125,7 @@ class FormsSiteController {
 
 				// If there is an ID, setup a form element object from an existing model in the database
 				if ($form_element->id) :
-					$tmpFormElement = \IFS\Models\FormElement::find($form_element->id);
+					$tmpFormElement = \IFS\Models\FormElement::findOrFail($form_element->id);
 				// Else, setup a new form element object
 				else :
 					$tmpFormElement = new \IFS\Models\FormElement;
