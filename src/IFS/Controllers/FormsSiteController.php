@@ -238,10 +238,23 @@ class FormsSiteController {
 	 * @param array $args Named placeholders from the URL
 	 * @return \Slim\Http\Response $response PSR-7 Response
 	 */
-	public function showSubmissions(Request $request, Response $response, array $args)
+	public function showSubmissions(Request $request, Response $response)
 	{	
+		// Get form id from query string
+		$form_id = $request->getQueryParam('form_id');
+		
+		// Connect to ORM
+		$this->container->get('orm');
+		
+		// Query submissions
+		$form = \IFS\Models\CustomForm::find($form_id);
+		$submissions = $form->form_submissions;
+		
 		// Return template
-		$response = $this->container->get('view')->render($response, "form_submissions.php", ['page_title' => 'Form Submissions']);
+		$response = $this->container->get('view')->render($response, "form_submissions.php", ['page_title' => 'Form Submissions',
+																																													'form' => $form,
+																																													'submissions' => $submissions
+				]);
 		return $response;
 	}
 	
