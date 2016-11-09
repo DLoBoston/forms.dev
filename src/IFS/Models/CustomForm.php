@@ -32,6 +32,9 @@ class CustomForm extends Model
 			return $this->hasMany('IFS\Models\FormSubmission', 'form_id');
 	}
 	
+	/** @todo Refactor out the initBuilderVars method to another class so that
+	 * this class can focus on just being a persist table representation.
+	 */
 	/**
 	 * Initializes the vars for form display in Builder. Overwrite with optionally passed in data.
 	 * 
