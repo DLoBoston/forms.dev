@@ -15,4 +15,20 @@ class FormSubmissionValue extends Model
 {
 	/** @var array Eloquent convention that allows mass assignment of certain properties. */
 	protected $fillable = ['form_element_id', 'value'];
+	
+	/**
+	 * Eloquent convention - All of the relationships to be touched.
+	 *
+	 * @var array
+	 */
+	protected $touches = ['form_submission'];
+	
+	/**
+	 * Eloquent convention - Get the form submission that this form submission value belongs to.
+	 */
+	public function form_submission()
+	{
+			return $this->belongsTo('IFS\Models\FormSubmission', 'submission_id', 'submission_id');
+	}
+	
 }
