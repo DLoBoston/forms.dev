@@ -10,7 +10,7 @@ return [
 						'lookup_value',
 						'textarea',
 						'checkboxes',
-						'radio buttons',
+						'radio',
 						'dropdown',
 						'multi-select dropdown',
 						'date',
