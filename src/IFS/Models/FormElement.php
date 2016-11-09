@@ -31,4 +31,12 @@ class FormElement extends Model
 			return $this->belongsTo('IFS\Models\CustomForm', 'form_id', 'form_id');
 	}
 	
+	/**
+	 * Eloquent function to get the options for a specific element.
+	 */
+	public function form_element_options()
+	{
+			return $this->hasMany('IFS\Models\FormElementOption', 'form_element_id');
+	}
+	
 }
