@@ -243,25 +243,49 @@ class FormsSiteController {
 		// Get submitted data
 		$data = $request->getParsedBody();
 		
+		// If applicable, get form id from query string
+		$submission_id = $request->getQueryParam('submission_id');
+		
 		// Connect to ORM
 		$this->container->get('orm');
 		
-		// Setup a new form submission object
-		$form_submission = new \IFS\Models\FormSubmission;
+		// If submission_id present, setup form submission object from an existing model in the database
+		if ($data['submission_id']) :
+			$form_submission = \IFS\Models\FormSubmission::findOrFail((int)$data['submission_id']);
+		// Else, setup a new form submission object
+		else :
+			$form_submission = new \IFS\Models\FormSubmission;
+			$form_submission->form_id = (int)$args['id'];
+		endif;
 		
-		// Update form object with user submission and save
-		$form_submission->form_id = (int)$args['id'];
+		// Persist in database
 		$form_submission->save();
 		
-		// Save input values
+		// Aggregate input values (i.e. elements with an form_element_id)
 		foreach ($data as $form_element => $value) :
-			$form_element_id = str_replace('form_element_id', '', $form_element);
-			$submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => $value]);
+			if (strpos($form_element, 'form_element_id_') !== false) :
+				
+				$form_element_id = str_replace('form_element_id_', '', $form_element);
+			
+				// Instantiate model for each submission value
+				if ($data['submission_id']) :
+					$tmpFormSubmissionValue = \IFS\Models\FormSubmissionValue::where([
+						['submission_id', '=', $data['submission_id']],
+						['form_element_id', '=', $form_element_id]])->firstOrFail();
+					$tmpFormSubmissionValue->value = $value;
+					$submission_values[] = $tmpFormSubmissionValue;
+				else :
+					$submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => $value]);
+				endif;
+				
+			endif;
 		endforeach;
+		
+		// Persist in database
 		$form_submission->form_submission_values()->saveMany($submission_values);
 		
 		// Redirect to home
-		redirect_to('/submissions/' . (int)$args['id']);		
+		redirect_to('/submissions/?form_id=' . (int)$args['id']);		
 	}
 	
 	/**
