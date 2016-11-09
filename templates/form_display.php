@@ -13,14 +13,18 @@
 		
 		<?php
 			
+			// Create form elements
 			foreach ($form->form_elements as $form_element) :
 				
 				// Create HTML object representation of form element
 				$html_element = \IFS\Models\HtmlElementFactory::create($form_element);
 				
+				// Initialize form element value
+				$value = ($keyed_submission_values) ? $keyed_submission_values[$form_element->form_element_id]->value : null;
+				
 				// Output display
 				echo '<div class="form-group">';
-					echo $html_element->getHtml($keyed_submission_values[$form_element->form_element_id]->value);
+					echo $html_element->getHtml($value);
 				echo '</div>';
 				
 			endforeach;
