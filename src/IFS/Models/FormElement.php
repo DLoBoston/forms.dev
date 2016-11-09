@@ -15,4 +15,20 @@ class FormElement extends Model
 {
   /** @var string Overrides ID assumed by Eloquent */
   protected $primaryKey = 'form_element_id';
+	
+	/**
+	 * Eloquent convention - All of the relationships to be touched.
+	 *
+	 * @var array
+	 */
+	protected $touches = ['custom_form'];
+	
+	/**
+	 * Eloquent convention - Get the form that this element belongs to.
+	 */
+	public function custom_form()
+	{
+			return $this->belongsTo('IFS\Models\CustomForm', 'form_id', 'form_id');
+	}
+	
 }
