@@ -209,9 +209,22 @@ class FormsSiteController {
 		// Get URI object for route to be passed to template
 		$uri = $request->getUri();
 		
+		// If applicable, get submission id from query string
+		$submission_id = $request->getQueryParam('submission_id');
+		
+		// If applicable, get previous submission
+		$submission = null;
+		$keyed_submission_values = null;
+		if ($submission_id) :
+			$submission = \IFS\Models\FormSubmission::with('form_submission_values')->findOrFail((int)$submission_id);
+			$keyed_submission_values = $submission->form_submission_values->keyBy('form_element_id');
+		endif;
+		
 		// Return template
 		$response = $this->container->get('view')->render($response, "form_display.php", ['page_title' => 'Display Form',
 																																											'form' => $form,
+																																											'submission' => $submission,
+																																											'keyed_submission_values' => $keyed_submission_values,
 																																											'route' => $uri->getPath()
 			]);
 		return $response;
