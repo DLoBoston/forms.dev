@@ -16,6 +16,7 @@ abstract class HtmlElementFactory
 	 * 
 	 * @param \IFS\Models\FormElement $generic_form_element User-defined form element.
 	 * @return \IFS\Models\TextElement|
+	 *				 \IFS\Models\HiddenElement|
 	 *				 \TextAreaElement|
 	 *				 \IFS\Models\RadioElement|
 	 *				 \IFS\Models\CheckboxElement|
@@ -32,6 +33,9 @@ abstract class HtmlElementFactory
 				break;
 			case 'select':
 				return new SelectElement($generic_form_element);
+				break;
+			case 'hidden_field':
+				return new HiddenElement($generic_form_element);
 				break;
 			case 'textarea':
 				return new TextAreaElement($generic_form_element);
