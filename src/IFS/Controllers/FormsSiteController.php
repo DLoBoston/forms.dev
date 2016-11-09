@@ -232,11 +232,44 @@ class FormsSiteController {
 	}
 	
 	/**
-	 * Show submissions associated with a specific form.
+	 * Process form submission. Validate and save valid input. Upon success, redirect.
 	 * 
 	 * @param \Slim\Http\Request $request PSR-7 Request
 	 * @param \Slim\Http\Response $response PSR-7 Response
 	 * @param array $args Named placeholders from the URL
+	 */
+	public function processFormSubmission(Request $request, Response $response, $args)
+	{
+		// Get submitted data
+		$data = $request->getParsedBody();
+		
+		// Connect to ORM
+		$this->container->get('orm');
+		
+		// Setup a new form submission object
+		$form_submission = new \IFS\Models\FormSubmission;
+		
+		// Update form object with user submission and save
+		$form_submission->form_id = (int)$args['id'];
+		$form_submission->save();
+		
+		// Save input values
+		foreach ($data as $form_element => $value) :
+			$form_element_id = str_replace('form_element_id', '', $form_element);
+			$submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => $value]);
+		endforeach;
+		$form_submission->form_submission_values()->saveMany($submission_values);
+		
+		// Redirect to home
+		redirect_to('/submissions/' . (int)$args['id']);		
+	}
+	
+	/**
+	 * Show submissions associated with a specific form.
+	 * 
+	 * @param \Slim\Http\Request $request PSR-7 Request
+	 * @param \Slim\Http\Response $response PSR-7 Response
+	 * @param int $form_id Expected query string parameter
 	 * @return \Slim\Http\Response $response PSR-7 Response
 	 */
 	public function showSubmissions(Request $request, Response $response)
