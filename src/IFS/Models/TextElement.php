@@ -6,7 +6,8 @@
 namespace IFS\Models;
 
 /**
- * HTML text input decorator for Form Element
+ * HTML text input decorator for Form Element. Note decorators include a
+ * reference to the element they are decorating.
  */
 class TextElement extends FormElementDecorator
 {	
@@ -14,11 +15,9 @@ class TextElement extends FormElementDecorator
 	 * Returns HTML for text input.
 	 * 
 	 * @param string $value Element value
-	 * @param IFS\Models\FormElementOption $options Element options. Not used
-	 * but required for method signature.
 	 * @return string
 	 */
-	public function getHtml($value, $options)
+	public function getHtml($value)
 	{
 		$html =		'<label for="form_element_id_' . $this->form_element->form_element_id . '">' . $this->form_element->label . '</label>' . PHP_EOL
 						. '<input'

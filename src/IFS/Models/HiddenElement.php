@@ -6,7 +6,8 @@
 namespace IFS\Models;
 
 /**
- * HTML hidden input decorator for Form Element
+ * HTML hidden input decorator for Form Element. Note decorators include a
+ * reference to the element they are decorating.
  */
 class HiddenElement extends FormElementDecorator
 {	
@@ -14,11 +15,9 @@ class HiddenElement extends FormElementDecorator
 	 * Returns HTML for hidden input.
 	 * 
 	 * @param string $value Element value
-	 * @param IFS\Models\FormElementOption $options Element options. Not used
-	 * but required for method signature.
 	 * @return string
 	 */
-	public function getHtml($value, $options)
+	public function getHtml($value)
 	{
 		$html =		'<input'
 						.		' id="form_element_id_' . $this->form_element->form_element_id . '"'
