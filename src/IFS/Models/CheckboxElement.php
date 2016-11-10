@@ -13,11 +13,11 @@ class CheckboxElement extends FormElement
 	/**
 	 * Returns HTML for checkbox input.
 	 * 
-	 * @param \IFS\Models\FormElement $element Generic form element representation
-	 * of a user-specified form element associated with a specific form.
+	 * @param string $value Element value
+	 * @param IFS\Models\FormElementOption $options Element options
 	 * @return string
 	 */
-	public function getHtml($element)
+	public function getHtml($value, $options)
 	{
 		$html =		'<p>' . $element->label . '</p>'
 						.	'<label>'

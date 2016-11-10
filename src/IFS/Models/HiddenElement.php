@@ -13,10 +13,12 @@ class HiddenElement extends FormElementDecorator
 	/**
 	 * Returns HTML for hidden input.
 	 * 
-	 * @param string $value Optional element value
+	 * @param string $value Element value
+	 * @param IFS\Models\FormElementOption $options Element options. Not used
+	 * but required for method signature.
 	 * @return string
 	 */
-	public function getHtml($value = null)
+	public function getHtml($value, $options)
 	{
 		$html =		'<input'
 						.		' id="form_element_id_' . $this->form_element->form_element_id . '"'

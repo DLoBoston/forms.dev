@@ -13,11 +13,11 @@ class SelectElement extends FormElement
 	/**
 	 * Returns HTML for select input.
 	 * 
-	 * @param \IFS\Models\FormElement $element Generic form element representation
-	 * of a user-specified form element associated with a specific form.
+	 * @param string $value Element value
+	 * @param IFS\Models\FormElementOption $options Element options
 	 * @return string
 	 */
-	public function getHtml($element)
+	public function getHtml($value, $options)
 	{
 		$html =		'<label>' . $element->label . '</label>' . PHP_EOL
 						.	'<select>'
