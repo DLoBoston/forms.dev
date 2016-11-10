@@ -7,20 +7,20 @@
 return [
 				'form_element_types' => [
 						'single_line_text',
-						'lookup_value',
 						'textarea',
-						'checkboxes',
+						'checkbox',
 						'radio',
-						'dropdown',
-						'multi-select dropdown',
-						'date',
-						'matrix',
-						'image_upload',
-						'hidden_field',
-						'lookup_search',
-						'signature',
-						'section',
-						'descriptive_text'
+						'select',
+						'select-multiple',
+//						'lookup_value',
+//						'date',
+//						'matrix',
+//						'image_upload',
+//						'hidden_field',
+//						'lookup_search',
+//						'signature',
+//						'section',
+//						'descriptive_text'
 					]
 			];
 
