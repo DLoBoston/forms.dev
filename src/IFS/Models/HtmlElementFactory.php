@@ -32,6 +32,7 @@ abstract class HtmlElementFactory
 				return new CheckboxElement($generic_form_element);
 				break;
 			case 'select':
+			case 'select-multiple':
 				return new SelectElement($generic_form_element);
 				break;
 			case 'hidden_field':
