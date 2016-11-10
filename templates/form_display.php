@@ -25,6 +25,7 @@
 				// Output display
 				echo '<div class="form-group">';
 					echo $html_element->getHtml($value, $form_element->form_element_options);
+					echo "<p class=\"guidelines\">{$form_element->guidelines}</p>";
 				echo '</div>';
 				
 			endforeach;
