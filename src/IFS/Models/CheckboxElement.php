@@ -1,14 +1,14 @@
 <?php
 /**
- * Model of checkbox input form field.
+ * HTML checkbox input decorator for Form Element.
  * @author dennis <dennis@ifscore.com>
  */
 namespace IFS\Models;
 
 /**
- * Model of checkbox input form field.
+ * HTML checkbox input decorator for Form Element.
  */
-class CheckboxElement extends FormElement
+class CheckboxElement extends FormElementDecorator
 {
 	/**
 	 * Returns HTML for checkbox input.
@@ -19,10 +19,17 @@ class CheckboxElement extends FormElement
 	 */
 	public function getHtml($value, $options)
 	{
-		$html =		'<p>' . $element->label . '</p>'
-						.	'<label>'
-						.		'<input type="checkbox" name="" value="">'
-						. '</label>';
+		$html =		'<p>' . $this->form_element->label . '</p>';
+		foreach ($options as $option) :
+			$html .=	'<label>' . $value
+							.	' <input'
+							.		' type="checkbox"'
+							.		' value="' . $option->name . '"'
+							.		' name="form_element_id_' . $this->form_element->form_element_id . '[]">'
+							.		' ' . $option->name
+							. '</label>' . PHP_EOL;
+		endforeach;
+		
 		return $html;
 	}
 }

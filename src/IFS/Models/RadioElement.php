@@ -19,19 +19,16 @@ class RadioElement extends FormElementDecorator
 	 */
 	public function getHtml($value, $options)
 	{
-		$html_options = null;
+		$html =		'<p>' . $this->form_element->label . '</p>';
 		foreach ($options as $option) :
-			$html_options .=	'<label>' . $value
-											.	' <input'
-											.		' type="radio"'
-											.		' value="' . $option->name . '"'
-											.		' name="form_element_id_' . $this->form_element->form_element_id . '">'
-											.		' ' . $option->name
-											. '</label>' . PHP_EOL;
+			$html .=	'<label>' . $value
+							.	' <input'
+							.		' type="radio"'
+							.		' value="' . $option->name . '"'
+							.		' name="form_element_id_' . $this->form_element->form_element_id . '">'
+							.		' ' . $option->name
+							. '</label>' . PHP_EOL;
 		endforeach;
-		
-		$html =		'<p>' . $this->form_element->label . '</p>'
-						.	$html_options;
 		
 		return $html;
 	}
