@@ -49,13 +49,13 @@ class CustomForm extends Model
 				'name' => '',
 				'elements' => null
 			];
-		
+			
 		// Overwrite with existing form model if applicable
 		if (!empty($form)) :
 			$data = [
 					'form_id' => $form->form_id,
 					'name' => $form->name,
-					'elements' => $form->form_elements
+					'elements' => $form->form_elements->sortBy('order')->values()
 				];
 		endif;
 
