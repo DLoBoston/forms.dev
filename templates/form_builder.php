@@ -58,6 +58,11 @@
 				<input id="propertyGuidelines" type="text" value="">
 			</div>
 			
+			<div class="form-group">
+				<label for="propertyOptions">Options</label>
+				<textarea id="propertyOptions" value=""></textarea>
+			</div>
+			
 		</form>
 		
 	</aside>
