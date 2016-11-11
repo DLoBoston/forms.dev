@@ -275,6 +275,9 @@ class FormsSiteController {
 		// Persist in database
 		$form_submission->save();
 		
+		// Delete previous submission values before storing new ones
+		$form_submission->form_submission_values()->delete();
+		
 		// Aggregate input values (i.e. elements with an form_element_id)
 		foreach ($data as $form_element => $value) :
 			if (strpos($form_element, 'form_element_id_') !== false) :
@@ -286,15 +289,7 @@ class FormsSiteController {
 				$value = (is_array($value)) ? implode(',', $value) : $value;
 			
 				// Instantiate model for each submission value
-				if ($data['submission_id']) :
-					$tmpFormSubmissionValue = \IFS\Models\FormSubmissionValue::where([
-						['submission_id', '=', $data['submission_id']],
-						['form_element_id', '=', $form_element_id]])->firstOrFail();
-					$tmpFormSubmissionValue->value = $value;
-					$submission_values[] = $tmpFormSubmissionValue;
-				else :
-					$submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => $value]);
-				endif;
+				$submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => $value]);
 				
 			endif;
 		endforeach;
