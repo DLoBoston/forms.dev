@@ -19,6 +19,10 @@ class SelectElement extends FormElementDecorator
 	 */
 	public function getHtml($value)
 	{
+		// If applicable, convert value to array
+		$value = (($value) ? explode(',', $value) : $value);
+		
+		// Construct HTML + value
 		$html =		'<label for="form_element_id_' . $this->form_element->form_element_id . '">' . $this->form_element->label . '</label>' . PHP_EOL
 						. '<select'
 						.		' id="form_element_id_' . $this->form_element->form_element_id . '"'
@@ -26,7 +30,10 @@ class SelectElement extends FormElementDecorator
 						.		' name="form_element_id_' . $this->form_element->form_element_id
 						.		(($this->form_element->type == 'select-multiple') ? '[]' : '') . '">';
 		foreach ($this->form_element->form_element_options as $option) :
-			$html .=	'<option value="' . $option->name . '">' . $option->name. '</option>' . PHP_EOL;
+			$html .=	'<option value="' . $option->name . '"'
+						.			(($value && array_search($option->name, $value) !== false) ? ' selected' : '')
+						.			'>'
+						. $option->name. '</option>' . PHP_EOL;
 		endforeach;
 		$html .=	'</select>';
 		

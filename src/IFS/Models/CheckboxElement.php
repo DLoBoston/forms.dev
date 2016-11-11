@@ -19,12 +19,17 @@ class CheckboxElement extends FormElementDecorator
 	 */
 	public function getHtml($value)
 	{
+		// If applicable, convert value to array
+		$value = (($value) ? explode(',', $value) : $value);
+		
+		// Construct HTML + value
 		$html =		'<p>' . $this->form_element->label . '</p>';
 		foreach ($this->form_element->form_element_options as $option) :
-			$html .=	'<label>' . $value
+			$html .=	'<label>'
 							.	' <input'
 							.		' type="checkbox"'
 							.		' value="' . $option->name . '"'
+							.		(($value && array_search($option->name, $value) !== false) ? ' checked' : '')
 							.		' name="form_element_id_' . $this->form_element->form_element_id . '[]">'
 							.		' ' . $option->name
 							. '</label>' . PHP_EOL;
