@@ -279,7 +279,11 @@ class FormsSiteController {
 		foreach ($data as $form_element => $value) :
 			if (strpos($form_element, 'form_element_id_') !== false) :
 				
+				// Get form element ID
 				$form_element_id = str_replace('form_element_id_', '', $form_element);
+				
+				// If applicable, convert value to a string that can be stored in database
+				$value = (is_array($value)) ? implode(',', $value) : $value;
 			
 				// Instantiate model for each submission value
 				if ($data['submission_id']) :
