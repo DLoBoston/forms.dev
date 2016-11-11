@@ -15,6 +15,13 @@ class FormElementOption extends Model
 {
 	
 	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = ['name'];
+	
+	/**
 	 * Eloquent convention - All of the relationships to be touched.
 	 *
 	 * @var array
