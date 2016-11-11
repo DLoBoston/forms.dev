@@ -9,7 +9,7 @@ $(document).ready(function() {
     //// CUSTOM OBJECTS ------------------------------------
     
     // Form Element
-    var FormElement = function (id, type, order, label, default_value, required, guidelines) {
+    var FormElement = function (id, type, order, label, default_value, required, guidelines, options) {
       this.id = id;
       this.type = type;
       this.order = order;
@@ -17,9 +17,10 @@ $(document).ready(function() {
       this.default_value = default_value;
       this.required = required;
       this.guidelines = guidelines;
+      this.options = options;
     };
       // Method associated with FormElement (as delineated by 'prototype') to get generic form element HTML
-      FormElement.prototype.getGenericHtml = function(id, type, order, label, default_value, required, guidelines) {
+      FormElement.prototype.getGenericHtml = function(id, type, order, label, default_value, required, guidelines, options) {
         return		'<div class="form-group">'
 								+		'<div data-form-element-id="' + id + '"'
 								+			' data-form-element-type="' + type + '"'
@@ -27,6 +28,7 @@ $(document).ready(function() {
 								+			' data-form-element-label="' + label + '"'
 								+			' data-form-element-default-value="' + default_value + '"'
 								+			' data-form-element-guidelines="' + guidelines + '"'
+								+			' data-form-element-options="' + options + '"'
 								+			' data-form-element-required="' + required + '">'
 								+			'<p><span class="element-label">' + label + '</span>'
 								+					'<span class="element-type"> (' + type + ')</span></p>'
@@ -40,13 +42,24 @@ $(document).ready(function() {
     // Display current form elements
 		if (current_form_data.elements) {
 			for (var i = 0; i < current_form_data.elements.length; i++) {
+				
+				// Convert options from current form data into format for page storage
+				form_element_options = [];
+				if (current_form_data.elements[i].form_element_options.length){
+					for (var j = 0; j < current_form_data.elements[i].form_element_options.length; j++) {
+						form_element_options.push(current_form_data.elements[i].form_element_options[j].name);
+					}
+				}
+				
+				// Add element to DOM
 				addFormElement(current_form_data.elements[i].form_element_id,
 													current_form_data.elements[i].type,
 													current_form_data.elements[i].order,
 													current_form_data.elements[i].label,
 													current_form_data.elements[i].default_value,
 													current_form_data.elements[i].required,
-													current_form_data.elements[i].guidelines);
+													current_form_data.elements[i].guidelines,
+													form_element_options);
 			};
 		}
 
@@ -55,7 +68,7 @@ $(document).ready(function() {
 			// Get next order value by getting length of existing elements and adding 1
 			order = ++$("div[data-form-element-id]").length;
 			// Add form element to DOM
-      addFormElement('', $(this).data("form-element-type"), order, 'NEW ELEMENT', '', 0, '');
+      addFormElement('', $(this).data("form-element-type"), order, 'NEW ELEMENT', '', 0, '', '');
     });
 
     // Setup handler - form delete button. After confirmation, adds hidden field and submits form
@@ -81,7 +94,8 @@ $(document).ready(function() {
                                             $(this).data("form-element-label"),
                                             $(this).data("form-element-default-value"),
                                             $(this).data("form-element-required"),
-                                            $(this).data("form-element-guidelines")));
+                                            $(this).data("form-element-guidelines"),
+                                            $(this).data("form-element-options")));
       });
       // JSON encode and place in hidden var
       $("input[name='form_elements']").val(JSON.stringify(form_elements));
@@ -115,13 +129,18 @@ $(document).ready(function() {
 		$("[name='propertyRequired']").change(function () {
 			$(current_form_element).data('form-element-required', $(this).prop('checked'));
 		});
+		
+		// Setup handler - Element properties toolbox - Update options
+		$("#propertyOptions").keyup(function () {
+			$(current_form_element).data('form-element-options', $(this).val().split('\n').join(','));
+		});
     
     //// FUNCTIONS ------------------------------------
     
     // Function to add a new form element to the DOM
-    function addFormElement(id, type, order, label, default_value, required, guidelines) {
+    function addFormElement(id, type, order, label, default_value, required, guidelines, options) {
       // Add generic form element html to dom
-      $("#form-elements").append(FormElement.prototype.getGenericHtml(id, type, order, label, default_value, required, guidelines));
+      $("#form-elements").append(FormElement.prototype.getGenericHtml(id, type, order, label, default_value, required, guidelines, options));
       // Add show form element properties event handler
       $("div[data-form-element-id]").last().click(showFormElementProperties);
       // Add delete link event handler
@@ -134,6 +153,7 @@ $(document).ready(function() {
 			$("aside#element-properties").find("#propertyLabel").val($(current_form_element).data('form-element-label'));
 			$("aside#element-properties").find("#propertyDefaultValue").val($(current_form_element).data('form-element-default-value'));
 			$("aside#element-properties").find("#propertyGuidelines").val($(current_form_element).data('form-element-guidelines'));
+			$("aside#element-properties").find("#propertyOptions").val($(current_form_element).data('form-element-options').split(',').join('\n'));
 			$("aside#element-properties").find("[name='propertyRequired']").prop('checked', $(current_form_element).data('form-element-required'));
 			$("aside#element-properties").show();
 		}
