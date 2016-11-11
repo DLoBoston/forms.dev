@@ -128,17 +128,31 @@ class FormsSiteController {
 					$tmpFormElement = new \IFS\Models\FormElement;
 				endif;
 		
-				// Update form element object with user submission and save
+				// Update form element object with user submission
 				$tmpFormElement->type = $form_element->type;
 				$tmpFormElement->label = $form_element->label;
 				$tmpFormElement->order = $form_element->order;
 				$tmpFormElement->required = $form_element->required;
 				$tmpFormElement->guidelines = $form_element->guidelines;
 				$tmpFormElement->default_value = $form_element->default_value;
+				
+					// Delete existing element options
+					$tmpFormElement->form_element_options()->delete();
+				
+					// If applicable, create new options with the user's submission
+					if ($form_element->options) :
+						$options = null;
+						foreach (explode(",", $form_element->options) as $option) :
+							$options[] = ['name' => $option];
+						endforeach;
+						$tmpFormElement->form_element_options()->createMany($options);
+					endif;
+						
+				// Persist in database
 				$form->form_elements()->save($tmpFormElement);
 
 			endforeach;
-		
+				
 		// Redirect to home
 		redirect_to('/');
 		
