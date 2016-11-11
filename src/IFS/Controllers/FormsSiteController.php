@@ -58,10 +58,7 @@ class FormsSiteController {
 		$form = null;
 		if (!empty($args)) :
 			$this->container->get('orm');
-			$form = \IFS\Models\CustomForm::with(['form_elements' => function($query)
-								{
-									$query->orderBy('order', 'asc');
-								}])
+			$form = \IFS\Models\CustomForm::with(['form_elements.form_element_options'])
 								->findOrFail((int)$args['id']);
 		endif;
 		
