@@ -3,13 +3,13 @@
  * Form Element Decorator.
  * @author dennis <dennis@ifscore.com>
  */
-namespace IFS\Models;
+namespace IFS\Models\FormElementDecorators;
 
 /**
  * Abstract class for decorating FormElements with other functionality, for example
  * the ability to be rendered as HTML.
  */
-abstract class FormElementDecorator extends FormElement
+abstract class FormElementDecorator extends \IFS\Models\FormElement
 {
   /** @var IFS\Models\FormElement Element being decorated. */
   protected $form_element;

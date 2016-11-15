@@ -1,13 +1,13 @@
 
 <?php include 'partials/html_header.php'; ?>
 
-<body>
+<body class="form_display">
   
 	<?php include 'partials/header.php'; ?>
   
 	<h3><?= $form->name; ?></h3>
 	
-	<form id="frm_<?= $form->form_id; ?>" action="<?= htmlspecialchars($route, ENT_QUOTES, "utf-8"); ?>" method="post">
+	<form id="frm_id_<?= $form->form_id; ?>" action="<?= htmlspecialchars($route, ENT_QUOTES, "utf-8"); ?>" method="post">
 		
 		<input type="hidden" name="submission_id" value="<?= (!empty($submission)) ? $submission->submission_id : null; ?>">
 		
@@ -39,5 +39,7 @@
 		</div>
 		
 	</form>
+	
+	<?php $page_scripts[] = '<script src="/scripts/form_display_v1.js"></script>'; ?>
 
 <?php include 'partials/html_footer.php';

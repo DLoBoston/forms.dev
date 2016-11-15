@@ -5,6 +5,10 @@
 */
 /* TODO convert to SASS */
 
+body {
+	background-color: gray;
+}
+
 body.form_builder aside#element-properties {
 	display: none;
 }
@@ -18,6 +22,7 @@ body.form_builder div#form-elements div.form-group {
 	border: 1px solid blue;
 }
 
-body.form_builder div#form-elements div[data-form-element-id] {
-	border: 1px dashed red;
+body.form_display span.required {
+	color: red;
+	font-weight: bold;
 }

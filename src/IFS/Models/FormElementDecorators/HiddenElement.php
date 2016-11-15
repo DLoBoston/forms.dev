@@ -3,7 +3,7 @@
  * HTML hidden input decorator for Form Element.
  * @author dennis <dennis@ifscore.com>
  */
-namespace IFS\Models;
+namespace IFS\Models\FormElementDecorators;
 
 /**
  * HTML hidden input decorator for Form Element. Note decorators include a

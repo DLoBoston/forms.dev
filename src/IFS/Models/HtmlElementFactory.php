@@ -5,6 +5,13 @@
  */
 namespace IFS\Models;
 
+use IFS\Models\FormElementDecorators\RadioElement;
+use IFS\Models\FormElementDecorators\CheckboxElement;
+use IFS\Models\FormElementDecorators\TextElement;
+use IFS\Models\FormElementDecorators\HiddenElement;
+use IFS\Models\FormElementDecorators\TextAreaElement;
+use IFS\Models\FormElementDecorators\SelectElement;
+
 /**
  * Factory to create appropriate html element based on user-defined form element.
  */
@@ -15,12 +22,12 @@ abstract class HtmlElementFactory
 	 * Factory to create appropriate html element based on user-defined form element.
 	 * 
 	 * @param \IFS\Models\FormElement $generic_form_element User-defined form element.
-	 * @return \IFS\Models\TextElement|
-	 *				 \IFS\Models\HiddenElement|
-	 *				 \TextAreaElement|
-	 *				 \IFS\Models\RadioElement|
-	 *				 \IFS\Models\CheckboxElement|
-	 *				 \IFS\Models\SelectElement
+	 * @return \IFS\Models\FormElementDecorators\TextElement|
+	 *				 \IFS\Models\FormElementDecorators\HiddenElement|
+	 *				 \IFS\Models\FormElementDecorators\TextAreaElement|
+	 *				 \IFS\Models\FormElementDecorators\RadioElement|
+	 *				 \IFS\Models\FormElementDecorators\CheckboxElement|
+	 *				 \IFS\Models\FormElementDecorators\SelectElement
 	 */
 	public static function create(\IFS\Models\FormElement $generic_form_element)
 	{
