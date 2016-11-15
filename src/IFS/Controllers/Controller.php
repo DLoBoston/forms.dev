@@ -10,7 +10,7 @@ use \Slim\Container;
 /**
  * Parent controller that injects DI container via constructor
  */
-class Controller {
+abstract class Controller {
     
 	/** @var array Application dependency container */
 	protected $container;
