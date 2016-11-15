@@ -19,8 +19,11 @@
 				// Create HTML object representation of form element
 				$html_element = \IFS\Models\HtmlElementFactory::create($form_element);
 				
-				// If applicable, initialize form element value				
-				$value = ($keyed_submission_values->has($form_element->form_element_id)) ? $keyed_submission_values[$form_element->form_element_id]->value : null;
+				// Initialize form element value
+				$value = null;
+				if ($keyed_submission_values) :
+					$value = ($keyed_submission_values->has($form_element->form_element_id)) ? $keyed_submission_values[$form_element->form_element_id]->value : null;
+				endif;
 				
 				// Output display
 				echo '<div class="form-group">';
