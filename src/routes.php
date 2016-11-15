@@ -15,3 +15,7 @@ $app->get('/display/{id}', '\IFS\Controllers\FormsSiteController:showForm');
 $app->post('/display/{id}', '\IFS\Controllers\FormsSiteController:processFormSubmission');
 
 $app->get('/submissions/', '\IFS\Controllers\FormsSiteController:showSubmissions');
+
+$app->group('/api/v1', function () {
+	$this->get('/submissions/{id}', '\IFS\Controllers\ApiController:getSubmission');
+});
