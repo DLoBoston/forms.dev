@@ -8,6 +8,9 @@ namespace IFS\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ * Site controller for main forms home.
+ */
 class FormsSiteController extends Controller
 {
 	
