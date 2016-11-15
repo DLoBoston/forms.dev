@@ -5,25 +5,11 @@
  */
 namespace IFS\Controllers;
 
-use \Slim\Container;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-class FormsSiteController {
-    
-	/** @var array Application dependency container */
-	private $container;
-
-	/**
-	 * Inject dependency container upon instantiation.
-	 * 
-	 * @param \Slim\Container $c Dependency container
-	 * @return void
-	 */
-	public function __construct(Container $c)
-	{
-			$this->container = $c;
-	}
+class FormsSiteController extends Controller
+{
 	
 	/**
 	 * The home of the site.
