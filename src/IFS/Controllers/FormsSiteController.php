@@ -87,10 +87,10 @@ class FormsSiteController extends Controller
 		// Else, setup a new form object
 		else :
 			$form = new \IFS\Models\CustomForm;
-			$form->name = $data['name'];
 		endif;
 		
-		// Persist in database
+		// Update name and persist in database
+		$form->name = $data['name'];
 		$form->save();
     
 		// Update form elements associated with form
