@@ -20,7 +20,9 @@
 				$html_element = \IFS\Models\HtmlElementFactory::create($form_element);
 				
 				// Initialize form element value
-				$value = null;
+				$value = $form_element->default_value;
+				
+				// If applicable, overwrite with previous submission
 				if ($keyed_submission_values) :
 					$value = ($keyed_submission_values->has($form_element->form_element_id)) ? $keyed_submission_values[$form_element->form_element_id]->value : null;
 				endif;
