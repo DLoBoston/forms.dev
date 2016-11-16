@@ -6,7 +6,8 @@
 /* TODO convert to SASS */
 
 body {
-	background-color: gray;
+	padding: 1em;
+	background-color: lightgray;
 }
 
 body.form_builder aside#element-properties {
