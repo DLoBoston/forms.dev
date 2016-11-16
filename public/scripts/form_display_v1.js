@@ -9,8 +9,6 @@ $(document).ready(function() {
 		
 		$("[data-required]").each(function() {
 			
-			console.log($(this));
-			
 			switch($(this).prop('type')) {
 				
 				// Check standard inputs
@@ -24,13 +22,13 @@ $(document).ready(function() {
 					}
 					break;
 				
-				// Selects, checkboxes, and radios
-//				case 'radio':
-//					$("[name=" + $(this).prop('name') + "")
-//						if ($.trim($(this).val()) === "") {
-//							blnValidSubmission = false;
-//						}
-//					break;
+				// Radio and checkbox
+				case 'radio':
+				case 'checkbox':
+					if (!$("input[name='" + $(this).prop('name') + "']:checked").val()) {
+						blnValidSubmission = false;
+					}
+					break;
 			}
 		});
 		
