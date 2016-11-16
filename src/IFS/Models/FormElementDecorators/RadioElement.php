@@ -20,7 +20,7 @@ class RadioElement extends FormElementDecorator
 	public function getHtml($value)
 	{
 		$html =		'<p>'
-						.		(($this->form_element->label) ? '<span class="required">* </span>' : '')
+						.		(($this->form_element->required) ? '<span class="required">* </span>' : '')
 						.		$this->form_element->label
 						. '</p>';
 		foreach ($this->form_element->form_element_options as $option) :
