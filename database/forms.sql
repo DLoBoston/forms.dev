@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `form_element_options`;
 CREATE TABLE IF NOT EXISTS `form_element_options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `form_element_id` int(11) NOT NULL,
-  `type` varchar(50) NOT NULL,
+  `type` varchar(50) DEFAULT NULL,
   `value` varchar(50) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
