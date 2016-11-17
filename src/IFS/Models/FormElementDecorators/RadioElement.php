@@ -27,10 +27,10 @@ class RadioElement extends FormElementDecorator
 			$html .=	'<label>'
 							.	' <input'
 							.		' type="radio"'
-							.		' value="' . $option->name . '"'
-							.		(($option->name === $value) ? ' checked' : '')
+							.		' value="' . $option->value . '"'
+							.		(($option->value === $value) ? ' checked' : '')
 							.		' name="form_element_id_' . $this->form_element->form_element_id . '">'
-							.		' ' . $option->name
+							.		' ' . $option->value
 							. '</label>' . PHP_EOL;
 		endforeach;
 		

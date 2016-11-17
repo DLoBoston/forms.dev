@@ -115,7 +115,7 @@ class FormBuilderController extends Controller
 				if ($form_element->options) :
 					$options = null;
 					foreach (explode(",", $form_element->options) as $option) :
-						$options[] = ['name' => $option];
+						$options[] = ['value' => $option];
 					endforeach;
 					$tmpFormElement->form_element_options()->createMany($options);
 				endif;

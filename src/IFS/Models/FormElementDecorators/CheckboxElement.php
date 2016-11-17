@@ -31,10 +31,10 @@ class CheckboxElement extends FormElementDecorator
 			$html .=	'<label>'
 							.	' <input'
 							.		' type="checkbox"'
-							.		' value="' . $option->name . '"'
-							.		(($value && array_search($option->name, $value) !== false) ? ' checked' : '')
+							.		' value="' . $option->value . '"'
+							.		(($value && array_search($option->value, $value) !== false) ? ' checked' : '')
 							.		' name="form_element_id_' . $this->form_element->form_element_id . '[]">'
-							.		' ' . $option->name
+							.		' ' . $option->value
 							. '</label>' . PHP_EOL;
 		endforeach;
 		

@@ -47,7 +47,7 @@ $(document).ready(function() {
 			form_element_options = [];
 			if (current_form_data.elements[i].form_element_options.length){
 				for (var j = 0; j < current_form_data.elements[i].form_element_options.length; j++) {
-					form_element_options.push(current_form_data.elements[i].form_element_options[j].name);
+					form_element_options.push(current_form_data.elements[i].form_element_options[j].value);
 				}
 			}
 

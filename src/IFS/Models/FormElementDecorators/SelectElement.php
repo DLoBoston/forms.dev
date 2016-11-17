@@ -35,10 +35,10 @@ class SelectElement extends FormElementDecorator
 						.		(($this->form_element->type == 'select-multiple') ? '[]' : '') . '">' . PHP_EOL
 						.		'<option value="">Please select</option>' . PHP_EOL;
 		foreach ($this->form_element->form_element_options as $option) :
-			$html .=	'<option value="' . $option->name . '"'
-						.			(($value && array_search($option->name, $value) !== false) ? ' selected' : '')
+			$html .=	'<option value="' . $option->value . '"'
+						.			(($value && array_search($option->value, $value) !== false) ? ' selected' : '')
 						.			'>'
-						. $option->name. '</option>' . PHP_EOL;
+						. $option->value. '</option>' . PHP_EOL;
 		endforeach;
 		$html .=	'</select>';
 		

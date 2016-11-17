@@ -19,7 +19,7 @@ class FormElementOption extends Model
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name'];
+	protected $fillable = ['value'];
 	
 	/**
 	 * Eloquent convention - All of the relationships to be touched.
