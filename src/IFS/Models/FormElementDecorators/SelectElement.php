@@ -31,7 +31,6 @@ class SelectElement extends FormElementDecorator
 						. '<select'
 						.		' id="form_element_id_' . $this->form_element->form_element_id . '"'
 						.		(($this->form_element->type == 'select-multiple') ? ' multiple' : '')
-						.		' data-required="' . $this->form_element->required . '"'
 						.		' name="form_element_id_' . $this->form_element->form_element_id
 						.		(($this->form_element->type == 'select-multiple') ? '[]' : '') . '">' . PHP_EOL
 						.		'<option value="">Please select</option>' . PHP_EOL;

@@ -28,7 +28,6 @@ class TextElement extends FormElementDecorator
 						.		' id="form_element_id_' . $this->form_element->form_element_id . '"'
 						.		' type="text"'
 						.		' value="' . $value . '"'
-						.		' data-required="' . $this->form_element->required . '"'
 						.		' name="form_element_id_' . $this->form_element->form_element_id . '">';
 		return $html;
 	}

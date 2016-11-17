@@ -26,7 +26,6 @@ class TextAreaElement extends FormElementDecorator
 						. '</label>' . PHP_EOL
 						. '<textarea'
 						.		' id="form_element_id_' . $this->form_element->form_element_id . '"'
-						.		' data-required="' . $this->form_element->required . '"'
 						.		' name="form_element_id_' . $this->form_element->form_element_id . '">'
 						.		$value
 						.	'</textarea>';

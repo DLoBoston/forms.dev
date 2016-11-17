@@ -28,7 +28,6 @@ class RadioElement extends FormElementDecorator
 							.	' <input'
 							.		' type="radio"'
 							.		' value="' . $option->name . '"'
-							.		' data-required="' . $this->form_element->required . '"'
 							.		(($option->name === $value) ? ' checked' : '')
 							.		' name="form_element_id_' . $this->form_element->form_element_id . '">'
 							.		' ' . $option->name

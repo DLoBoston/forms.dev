@@ -19,28 +19,13 @@ $(document).ready(function() {
 		
 		// Initialize vars
 		var blnValidSubmission = true;
-		required_fields = [];
 		
-		// Find all required fields, and add to array
+		// Find all field containters with required fields
 		$("[data-required='1']").each(function() {
-			// If name not already found, add it
-			if (!required_fields.includes($(this).prop('name'))) {
-				required_fields.push($(this).prop('name'));
-			}
-		});
-		
-		console.log(required_fields);
-		
-		// Loop over all required fields
-		for (var i = 0; i < required_fields.length; i++) {
 			
-			// Find field in DOM
-			$("[name=" + required_fields[i] + "]").each(function() {
-				
-				// Check for the field's value based on it's type, and if applicable record any errors
+			// Check the input for value by type, and record error if applicable
+			$(this).find(":input").each(function() {
 				switch($(this).prop('type')) {
-
-					// For standard inputs...
 					case 'text':
 					case 'textarea':
 					case 'select-one':
@@ -51,8 +36,6 @@ $(document).ready(function() {
 							recordError($(this).prop('name'), "This field is required");
 						}
 						break;
-
-					// For radio and checkboxes...
 					case 'radio':
 					case 'checkbox':
 						if (!$("input[name='" + $(this).prop('name') + "']:checked").val()) {
@@ -62,10 +45,8 @@ $(document).ready(function() {
 						}
 						break;
 				}
-				
 			});
-			
-		}
+		});
 		
 		// Prevent submission and display errors if any validation issues found
 		if (!blnValidSubmission) {

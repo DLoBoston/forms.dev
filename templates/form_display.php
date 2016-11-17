@@ -28,7 +28,9 @@
 				endif;
 				
 				// Output display
-				echo '<div class="form-group">';
+				echo '<div' 
+						.	' class="form-group"'
+						. ' data-required="' . $form_element->required . '">';
 					echo $html_element->getHtml($value);
 					echo "<p class=\"guidelines\">{$form_element->guidelines}</p>";
 				echo '</div>';
