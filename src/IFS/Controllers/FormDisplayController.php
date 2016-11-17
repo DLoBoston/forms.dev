@@ -69,6 +69,10 @@ class FormDisplayController extends Controller
 		// Get submitted data
 		$data = $request->getParsedBody();
 		
+		echo '<pre>';
+		print_r($data);
+		echo '</pre>';
+		
 		// If applicable, get form id from query string
 		$submission_id = $request->getQueryParam('submission_id');
 		
@@ -95,16 +99,22 @@ class FormDisplayController extends Controller
 			if (strpos($form_element, 'form_element_id_') !== false) :
 				
 				// Get form element ID
-				$form_element_id = str_replace('form_element_id_', '', $form_element);
+				preg_match('/form_element_id_([0-9]+)[[:graph:]]*/', $form_element, $matches);
+				$form_element_id = $matches[1];
 				
-				// If applicable, convert value to a string that can be stored in database
-				$value = (is_array($value)) ? implode(',', $value) : $value;
+				// Convert value to a JSON string that can be stored in database
+				$value_json = json_encode($value);
 			
 				// Instantiate model for each submission value
-				$submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => $value]);
+				$submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => $value_json]);
 				
 			endif;
 		endforeach;
+		echo '<pre>';
+		print_r($submission_values);
+		echo '</pre>';
+		exit('-exit-');
+		exit('-exit-');
 		
 		// Persist in database
 		$form_submission->form_submission_values()->saveMany($submission_values);
