@@ -13,14 +13,7 @@ return [
 						'select',
 						'select-multiple',
 						'hidden_field',
-//						'lookup_value',
-//						'date',
-//						'matrix',
-//						'image_upload',
-//						'lookup_search',
-//						'signature',
-//						'section',
-//						'descriptive_text'
+						'matrix-radio'
 					]
 			];
 

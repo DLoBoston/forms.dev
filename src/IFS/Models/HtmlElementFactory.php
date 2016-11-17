@@ -11,6 +11,7 @@ use IFS\Models\FormElementDecorators\TextElement;
 use IFS\Models\FormElementDecorators\HiddenElement;
 use IFS\Models\FormElementDecorators\TextAreaElement;
 use IFS\Models\FormElementDecorators\SelectElement;
+use IFS\Models\FormElementDecorators\MatrixRadioElement;
 
 /**
  * Factory to create appropriate html element based on user-defined form element.
@@ -27,11 +28,15 @@ abstract class HtmlElementFactory
 	 *				 \IFS\Models\FormElementDecorators\TextAreaElement|
 	 *				 \IFS\Models\FormElementDecorators\RadioElement|
 	 *				 \IFS\Models\FormElementDecorators\CheckboxElement|
-	 *				 \IFS\Models\FormElementDecorators\SelectElement
+	 *				 \IFS\Models\FormElementDecorators\SelectElement|
+	 *				 \IFS\Models\FormElementDecorators\MatrixRadioElement
 	 */
 	public static function create(\IFS\Models\FormElement $generic_form_element)
 	{
 		switch ($generic_form_element->type) {
+			case 'matrix-radio':
+				return new MatrixRadioElement($generic_form_element);
+				break;
 			case 'radio':
 				return new RadioElement($generic_form_element);
 				break;
