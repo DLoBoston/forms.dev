@@ -105,13 +105,10 @@ class FormDisplayController extends Controller
 					$form_element_option_id = $matches[3];
 				endif;
 				
-				// Convert value to a JSON string that can be stored in a database
-				$value_json = json_encode($value);
-				
 				if (!$form_element_option_id) :
-					$users_submission[$form_element_id] = $value_json;
+					$users_submission[$form_element_id] = $value;
 				else :
-					$users_submission[$form_element_id][$form_element_option_id] = $value_json;
+					$users_submission[$form_element_id][$form_element_option_id] = $value;
 				endif;
 				
 			endif;
@@ -119,7 +116,7 @@ class FormDisplayController extends Controller
 			
 		// Instantiate model for each submission value
 		foreach ($users_submission as $form_element_id => $form_submission_value) :
-			$form_submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => $form_submission_value]);
+			$form_submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => json_encode($form_submission_value)]);
 		endforeach;
 		
 		// Persist in database
