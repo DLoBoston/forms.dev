@@ -13,7 +13,8 @@ return [
 						'select',
 						'select-multiple',
 						'hidden_field',
-						'matrix-radio'
+						'matrix-radio',
+						'matrix-checkbox'
 					]
 			];
 
