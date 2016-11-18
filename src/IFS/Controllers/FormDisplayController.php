@@ -95,36 +95,39 @@ class FormDisplayController extends Controller
 		$form_submission->form_submission_values()->delete();
 		
 		// Aggregate input values (i.e. elements with an form_element_id)
+		$users_submission = [];
 		foreach ($data as $form_element => $value) :
 			if (strpos($form_element, 'form_element_id_') !== false) :
 				
-				// Get IDs for each form element submission
+				// Get form element ID
 				preg_match('/form_element_id_([0-9]+)(_option_id_){0,1}([0-9]+)*/', $form_element, $matches);
-				echo '<pre>';
-				print_r($matches);
-				echo '</pre>';
 				$form_element_id = $matches[1];
-				if () :
-					
-				endif;;
 				
-				// Convert value to a JSON string that can be stored in database
+				// Get option ID if applicable
+				$form_element_option_id = null;
+				if (strpos($matches[0], 'option_id') !== false) :
+					$form_element_option_id = $matches[3];
+				endif;
+				
+				// Convert value to a JSON string that can be stored in a database
 				$value_json = json_encode($value);
-			
-				// Instantiate model for each submission value
-				//$submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => $value_json]);
+				
+				if (!$form_element_option_id) :
+					$users_submission[$form_element_id] = $value_json;
+				else :
+					$users_submission[$form_element_id][$form_element_option_id] = $value_json;
+				endif;
 				
 			endif;
 		endforeach;
-		
-		echo '<pre>';
-		//print_r($submission_values);
-		echo '</pre>';
-		exit('-exit-');
-		exit('-exit-');
+			
+		// Instantiate model for each submission value
+		foreach ($users_submission as $form_element_id => $form_submission_value) :
+			$form_submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => $form_submission_value]);
+		endforeach;
 		
 		// Persist in database
-		$form_submission->form_submission_values()->saveMany($submission_values);
+		$form_submission->form_submission_values()->saveMany($form_submission_values);
 		
 		// Redirect to home
 		redirect_to('/submissions/?form_id=' . (int)$args['id']);		
