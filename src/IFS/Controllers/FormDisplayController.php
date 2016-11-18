@@ -69,10 +69,6 @@ class FormDisplayController extends Controller
 		// Get submitted data
 		$data = $request->getParsedBody();
 		
-		echo '<pre>';
-		print_r($data);
-		echo '</pre>';
-		
 		// If applicable, get form id from query string
 		$submission_id = $request->getQueryParam('submission_id');
 		
