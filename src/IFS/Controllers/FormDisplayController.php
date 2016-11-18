@@ -98,20 +98,27 @@ class FormDisplayController extends Controller
 		foreach ($data as $form_element => $value) :
 			if (strpos($form_element, 'form_element_id_') !== false) :
 				
-				// Get form element ID
-				preg_match('/form_element_id_([0-9]+)[[:graph:]]*/', $form_element, $matches);
+				// Get IDs for each form element submission
+				preg_match('/form_element_id_([0-9]+)(_option_id_){0,1}([0-9]+)*/', $form_element, $matches);
+				echo '<pre>';
+				print_r($matches);
+				echo '</pre>';
 				$form_element_id = $matches[1];
+				if () :
+					
+				endif;;
 				
 				// Convert value to a JSON string that can be stored in database
 				$value_json = json_encode($value);
 			
 				// Instantiate model for each submission value
-				$submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => $value_json]);
+				//$submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => $value_json]);
 				
 			endif;
 		endforeach;
+		
 		echo '<pre>';
-		print_r($submission_values);
+		//print_r($submission_values);
 		echo '</pre>';
 		exit('-exit-');
 		exit('-exit-');
