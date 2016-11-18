@@ -14,13 +14,19 @@ class SelectElement extends FormElementDecorator
 	/**
 	 * Returns HTML for select input.
 	 * 
-	 * @param string $value Element value
+	 * @param string $value PHP serialized encoded element value.
 	 * @return string
 	 */
 	public function getHtml($value)
-	{
-		// If applicable, convert value to array
-		$value = (($value) ? explode(',', $value) : $value);
+	{	
+		// Unserialize value
+		$value = unserialize($value);
+		
+		// If value is defined but not array, convert to array so that it can be
+		// used below for select elements that are single and select-multiple.
+		if ($value && !is_array($value)) :
+			$value = array($value);
+		endif;
 		
 		// Construct HTML + value
 		$html =		'<label for="form_element_id_'
@@ -35,9 +41,10 @@ class SelectElement extends FormElementDecorator
 						.		(($this->form_element->type == 'select-multiple') ? '[]' : '') . '">' . PHP_EOL
 						.		'<option value="">Please select</option>' . PHP_EOL;
 		foreach ($this->form_element->form_element_options as $option) :
-			$html .=	'<option value="' . $option->value . '"'
+			$html .=	'<option '
+						.			'value="' . $option->value . '"'
 						.			(($value && array_search($option->value, $value) !== false) ? ' selected' : '')
-						.			'>'
+						.		'>'
 						. $option->value. '</option>' . PHP_EOL;
 		endforeach;
 		$html .=	'</select>';

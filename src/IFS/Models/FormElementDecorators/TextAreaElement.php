@@ -14,11 +14,15 @@ class TextAreaElement extends FormElementDecorator
 	/**
 	 * Returns HTML for textarea input.
 	 * 
-	 * @param string $value Element value
+	 * @param string $value PHP serialized encoded element value.
 	 * @return string
 	 */
 	public function getHtml($value)
 	{
+		// Unserialize value
+		$value = unserialize($value);
+		
+		// Construct HTML
 		$html =		'<label for="form_element_id_'
 						.		$this->form_element->form_element_id . '">'
 						.		(($this->form_element->required) ? '<span class="required">* </span>' : '')

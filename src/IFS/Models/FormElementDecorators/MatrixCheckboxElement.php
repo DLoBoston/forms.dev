@@ -14,11 +14,14 @@ class MatrixCheckboxElement extends FormElementDecorator
 	/**
 	 * Returns HTML for matrix checkbox input.
 	 * 
-	 * @param string $value Element value
+	 * @param string $value PHP serialized encoded element value.
 	 * @return string
 	 */
 	public function getHtml($value)
 	{
+		// Unserialize value
+		$value = unserialize($value);
+		
 		// Separate element options into column and row options
 		$column_options = $this->form_element->form_element_options->filter(function ($option) {
 			return ($option->type === "column-header");
@@ -46,6 +49,7 @@ class MatrixCheckboxElement extends FormElementDecorator
 											.			' type="checkbox"'
 											.			' name="form_element_id_' . $row_option->form_element_id . '_option_id_' . $row_option->id . '[]"'
 											.			' value="' . $column_option->value . '"'
+											.			(($value && array_key_exists($row_option->value, $value) && array_search($column_option->value, $value[$row_option->value]) !== false) ? ' checked' : '')														
 											.		'>'
 											. '</td>';
 			endforeach;

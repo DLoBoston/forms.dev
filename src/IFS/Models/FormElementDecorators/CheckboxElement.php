@@ -14,13 +14,13 @@ class CheckboxElement extends FormElementDecorator
 	/**
 	 * Returns HTML for checkbox input.
 	 * 
-	 * @param string $value Element value
+	 * @param string $value PHP serialized element value.
 	 * @return string
 	 */
 	public function getHtml($value)
-	{
-		// If applicable, convert value to array
-		$value = (($value) ? explode(',', $value) : $value);
+	{	
+		// Unserialize value
+		$value = unserialize($value);
 		
 		// Construct HTML + value
 		$html =		'<p>'

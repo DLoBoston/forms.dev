@@ -117,7 +117,7 @@ class FormDisplayController extends Controller
 			
 		// Instantiate model for each submission value
 		foreach ($users_submission as $form_element_id => $form_submission_value) :
-			$form_submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => json_encode($form_submission_value)]);
+			$form_submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'serialized_value' => serialize($form_submission_value)]);
 		endforeach;
 		
 		// Persist in database
