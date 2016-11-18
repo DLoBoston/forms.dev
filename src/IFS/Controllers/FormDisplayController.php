@@ -99,16 +99,17 @@ class FormDisplayController extends Controller
 				preg_match('/form_element_id_([0-9]+)(_option_id_){0,1}([0-9]+)*/', $form_element, $matches);
 				$form_element_id = $matches[1];
 				
-				// Get option ID if applicable
+				// Get option if applicable
 				$form_element_option_id = null;
 				if (strpos($matches[0], 'option_id') !== false) :
 					$form_element_option_id = $matches[3];
+					$form_element_option = \IFS\Models\FormElementOption::find($form_element_option_id);
 				endif;
 				
 				if (!$form_element_option_id) :
 					$users_submission[$form_element_id] = $value;
 				else :
-					$users_submission[$form_element_id][$form_element_option_id] = $value;
+					$users_submission[$form_element_id][$form_element_option->value] = $value;
 				endif;
 				
 			endif;
