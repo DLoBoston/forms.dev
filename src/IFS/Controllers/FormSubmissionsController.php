@@ -31,7 +31,7 @@ class FormSubmissionsController extends Controller
 		$this->container->get('orm');
 		
 		// Query submissions
-		$form = \IFS\Models\CustomForm::find($form_id);
+		$form = \IFS\Models\Form::find($form_id);
 		$submissions = $form->form_submissions;
 		
 		// Return template

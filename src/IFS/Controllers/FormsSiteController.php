@@ -25,7 +25,7 @@ class FormsSiteController extends Controller
 	{
 		// Get forms
 		$this->container->get('orm');
-		$all_forms = \IFS\Models\CustomForm::all();
+		$all_forms = \IFS\Models\Form::all();
 		
 		// Return template
 		$response = $this->container->get('view')->render($response, "forms_home.php", ['page_title' => 'Forms Home',

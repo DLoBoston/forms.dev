@@ -27,12 +27,12 @@ class FormBuilderController extends Controller
 		$form = null;
 		if (!empty($args)) :
 			$this->container->get('orm');
-			$form = \IFS\Models\CustomForm::with(['form_elements.form_element_options'])
+			$form = \IFS\Models\Form::with(['form_elements.form_element_options'])
 								->findOrFail((int)$args['id']);
 		endif;
 		
 		// Initialize builder data
-		$form_data = \IFS\Models\CustomForm::initBuilderVars($form);
+		$form_data = \IFS\Models\Form::initBuilderVars($form);
 		
 		// Get URI object for route to be passed to template
 		$uri = $request->getUri();
@@ -63,10 +63,10 @@ class FormBuilderController extends Controller
 		
 		// If URL param present, setup form object from an existing model in the database
 		if (!empty($args)) :
-			$form = \IFS\Models\CustomForm::findOrFail((int)$args['id']);
+			$form = \IFS\Models\Form::findOrFail((int)$args['id']);
 		// Else, setup a new form object
 		else :
-			$form = new \IFS\Models\CustomForm;
+			$form = new \IFS\Models\Form;
 		endif;
 		
 		// Update name and persist in database
@@ -143,7 +143,7 @@ class FormBuilderController extends Controller
 		$this->container->get('orm');
 		
 		// Delete form
-		\IFS\Models\CustomForm::destroy($args['id']);
+		\IFS\Models\Form::destroy($args['id']);
 		
 		// Redirect to home
 		redirect_to('/');
