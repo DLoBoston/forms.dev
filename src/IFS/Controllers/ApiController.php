@@ -35,7 +35,7 @@ class ApiController extends Controller
 		// Format data for response
 		$submission_values = [];
 		foreach($raw_keyed_submission_values as $key => $value) :
-			$submission_values[$key] = unserialize($value->serialized_value);
+			$submission_values[$key] = $value->value;
 		endforeach;
 		$submission = [
 				'form_id' => $raw_submission['form_id'],

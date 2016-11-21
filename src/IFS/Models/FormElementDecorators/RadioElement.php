@@ -14,15 +14,11 @@ class RadioElement extends FormElementDecorator
 	/**
 	 * Returns HTML for radio input.
 	 * 
-	 * @param string $value PHP serialized encoded element value.
+	 * @param string $value Element value
 	 * @return string
 	 */
 	public function getHtml($value)
 	{
-		// Unserialize value
-		$value = unserialize($value);
-		
-		// Construct HTML
 		$html =		'<p>'
 						.		(($this->form_element->required) ? '<span class="required">* </span>' : '')
 						.		$this->form_element->label

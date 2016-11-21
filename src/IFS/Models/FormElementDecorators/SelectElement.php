@@ -14,19 +14,13 @@ class SelectElement extends FormElementDecorator
 	/**
 	 * Returns HTML for select input.
 	 * 
-	 * @param string $value PHP serialized encoded element value.
+	 * @param string $value Element value
 	 * @return string
 	 */
 	public function getHtml($value)
-	{	
-		// Unserialize value
-		$value = unserialize($value);
-		
-		// If value is defined but not array, convert to array so that it can be
-		// used below for select elements that are single and select-multiple.
-		if ($value && !is_array($value)) :
-			$value = array($value);
-		endif;
+	{
+		// If applicable, convert value to array
+		$value = (($value) ? explode(',', $value) : $value);
 		
 		// Construct HTML + value
 		$html =		'<label for="form_element_id_'
