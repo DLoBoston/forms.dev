@@ -21,10 +21,10 @@ class MatrixCheckboxElement extends FormElementDecorator
 	{
 		// Separate element options into column and row options
 		$column_options = $this->form_element->form_element_options->filter(function ($option) {
-			return ($option->type === "column-header");
+			return ($option->type === "matrix-column");
 		});
 		$row_options = $this->form_element->form_element_options->filter(function ($option) {
-			return ($option->type === "row-header");
+			return ($option->type === "matrix-row");
 		});
 		
 		// Build matrix header
