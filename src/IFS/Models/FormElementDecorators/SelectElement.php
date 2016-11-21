@@ -19,10 +19,13 @@ class SelectElement extends FormElementDecorator
 	 */
 	public function getHtml($value)
 	{
-		// If applicable, convert value to array
-		$value = (($value) ? explode(',', $value) : $value);
+		// If value is defined but not array, convert to array so that it can be
+		// used below for select elements that are single and select-multiple.
+		if ($value && !is_array($value)) :
+			$value = array($value);
+		endif;
 		
-		// Construct HTML + value
+		// Construct HTML
 		$html =		'<label for="form_element_id_'
 						.		$this->form_element->form_element_id . '">'
 						.		(($this->form_element->required) ? '<span class="required">* </span>' : '')
