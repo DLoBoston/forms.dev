@@ -27,11 +27,12 @@ class FormDisplayController extends Controller
 	{	
 		// Get form data
 		$this->container->get('orm');
-		$form = \IFS\Models\CustomForm::with(['form_elements' => function($query)
-								{
-									$query->orderBy('order', 'asc');
-								}])
-								->findOrFail((int)$args['id']);
+		$form = \IFS\Models\Form::with([
+				'form_sections',
+				'form_elements' => function($query) {
+					$query->orderBy('order', 'asc');
+				}])
+				->findOrFail((int)$args['id']);
 								
 		// Get URI object for route to be passed to template
 		$uri = $request->getUri();
@@ -114,7 +115,7 @@ class FormDisplayController extends Controller
 				
 			endif;
 		endforeach;
-			
+		
 		// Instantiate model for each submission value
 		foreach ($users_submission as $form_element_id => $form_submission_value) :
 			$form_submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => json_encode($form_submission_value)]);
