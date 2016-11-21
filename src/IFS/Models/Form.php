@@ -22,14 +22,6 @@ class Form extends Model
 	}
 	
 	/**
-	 * Get all of the form_elements associated with the form via a section.
-	 */
-	public function form_elements()
-	{
-			return $this->hasManyThrough('IFS\Models\FormElement', 'IFS\Models\FormSection');
-	}
-	
-	/**
 	 * Eloquent function to get the form submissions for a specific form.
 	 */
 	public function form_submissions()
