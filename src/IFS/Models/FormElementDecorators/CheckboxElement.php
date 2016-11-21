@@ -18,11 +18,7 @@ class CheckboxElement extends FormElementDecorator
 	 * @return string
 	 */
 	public function getHtml($value)
-	{
-		// If applicable, convert value to array
-		$value = (($value) ? explode(',', $value) : $value);
-		
-		// Construct HTML + value
+	{	
 		$html =		'<p>'
 						.		(($this->form_element->required) ? '<span class="required">* </span>' : '')
 						.		$this->form_element->label
