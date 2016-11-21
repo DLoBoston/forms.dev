@@ -24,7 +24,7 @@
 				
 				// If applicable, overwrite with previous submission
 				if ($keyed_submission_values) :
-					$value = ($keyed_submission_values->has($form_element->form_element_id)) ? $keyed_submission_values[$form_element->form_element_id]->value : null;
+					$value = ($keyed_submission_values->has($form_element->form_element_id)) ? json_decode($keyed_submission_values[$form_element->form_element_id]->value, true) : null;
 				endif;
 				
 				// Output display
