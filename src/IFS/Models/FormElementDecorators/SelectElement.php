@@ -27,14 +27,14 @@ class SelectElement extends FormElementDecorator
 		
 		// Construct HTML
 		$html =		'<label for="form_element_id_'
-						.		$this->form_element->form_element_id . '">'
+						.		$this->form_element->id . '">'
 						.		(($this->form_element->required) ? '<span class="required">* </span>' : '')
 						.		$this->form_element->label
 						. '</label>' . PHP_EOL
 						. '<select'
-						.		' id="form_element_id_' . $this->form_element->form_element_id . '"'
+						.		' id="form_element_id_' . $this->form_element->id . '"'
 						.		(($this->form_element->type == 'select-multiple') ? ' multiple' : '')
-						.		' name="form_element_id_' . $this->form_element->form_element_id
+						.		' name="form_element_id_' . $this->form_element->id
 						.		(($this->form_element->type == 'select-multiple') ? '[]' : '') . '">' . PHP_EOL
 						.		'<option value="">Please select</option>' . PHP_EOL;
 		foreach ($this->form_element->form_element_options as $option) :

@@ -28,7 +28,7 @@ class ApiController extends Controller
 		$this->container->get('orm');
 		$raw_submission = \IFS\Models\FormSubmission::with('form_submission_values')->findOrFail((int)$args['id']);
 		$raw_keyed_submission_values = $raw_submission->form_submission_values->keyBy(function ($item) {
-			$element_label = \IFS\Models\FormElement::where('form_element_id', $item['form_element_id'])->value('label');
+			$element_label = \IFS\Models\FormElement::where('id', $item['form_element_id'])->value('label');
 			return $element_label;
 		});
 		
@@ -39,7 +39,7 @@ class ApiController extends Controller
 		endforeach;
 		$submission = [
 				'form_id' => $raw_submission['form_id'],
-				'submission_id' => $raw_submission['submission_id'],
+				'submission_id' => $raw_submission['id'],
 				'responses' => $submission_values
 		];
 		

@@ -13,9 +13,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class FormElement extends Model
 {
-  /** @var string Overrides ID assumed by Eloquent */
-  protected $primaryKey = 'form_element_id';
-	
 	/**
 	 * Eloquent convention - All of the relationships to be touched.
 	 *
@@ -28,7 +25,7 @@ class FormElement extends Model
 	 */
 	public function custom_form()
 	{
-			return $this->belongsTo('IFS\Models\CustomForm', 'form_id', 'form_id');
+			return $this->belongsTo('IFS\Models\Form');
 	}
 	
 	/**
@@ -36,7 +33,7 @@ class FormElement extends Model
 	 */
 	public function form_element_options()
 	{
-			return $this->hasMany('IFS\Models\FormElementOption', 'form_element_id');
+			return $this->hasMany('IFS\Models\FormElementOption');
 	}
 	
 }

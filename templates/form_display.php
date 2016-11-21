@@ -7,9 +7,9 @@
   
 	<h3><?= $form->name; ?></h3>
 	
-	<form id="frm_id_<?= $form->form_id; ?>" action="<?= htmlspecialchars($route, ENT_QUOTES, "utf-8"); ?>" method="post">
+	<form id="frm_id_<?= $form->id; ?>" action="<?= htmlspecialchars($route, ENT_QUOTES, "utf-8"); ?>" method="post">
 		
-		<input type="hidden" name="submission_id" value="<?= (!empty($submission)) ? $submission->submission_id : null; ?>">
+		<input type="hidden" name="submission_id" value="<?= (!empty($submission)) ? $submission->id : null; ?>">
 		
 		<?php
 			
@@ -24,7 +24,7 @@
 				
 				// If applicable, overwrite with previous submission
 				if ($keyed_submission_values) :
-					$value = ($keyed_submission_values->has($form_element->form_element_id)) ? json_decode($keyed_submission_values[$form_element->form_element_id]->value, true) : null;
+					$value = ($keyed_submission_values->has($form_element->id)) ? json_decode($keyed_submission_values[$form_element->id]->value, true) : null;
 				endif;
 				
 				// Output display

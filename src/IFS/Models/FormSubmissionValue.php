@@ -28,7 +28,7 @@ class FormSubmissionValue extends Model
 	 */
 	public function form_submission()
 	{
-			return $this->belongsTo('IFS\Models\FormSubmission', 'submission_id', 'submission_id');
+			return $this->belongsTo('IFS\Models\FormSubmission');
 	}
 	
 }

@@ -20,10 +20,10 @@ class HiddenElement extends FormElementDecorator
 	public function getHtml($value)
 	{
 		$html =		'<input'
-						.		' id="form_element_id_' . $this->form_element->form_element_id . '"'
+						.		' id="form_element_id_' . $this->form_element->id . '"'
 						.		' type="hidden"'
 						.		' value="' . $value . '"'
-						.		' name="form_element_id_' . $this->form_element->form_element_id . '">';
+						.		' name="form_element_id_' . $this->form_element->id . '">';
 		return $html;
 	}
 }

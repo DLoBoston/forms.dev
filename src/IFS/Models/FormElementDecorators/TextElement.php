@@ -20,15 +20,15 @@ class TextElement extends FormElementDecorator
 	public function getHtml($value)
 	{
 		$html =		'<label for="form_element_id_'
-						.		$this->form_element->form_element_id . '">'
+						.		$this->form_element->id . '">'
 						.		(($this->form_element->required) ? '<span class="required">* </span>' : '')
 						.		$this->form_element->label
 						. '</label>' . PHP_EOL
 						. '<input'
-						.		' id="form_element_id_' . $this->form_element->form_element_id . '"'
+						.		' id="form_element_id_' . $this->form_element->id . '"'
 						.		' type="text"'
 						.		' value="' . $value . '"'
-						.		' name="form_element_id_' . $this->form_element->form_element_id . '">';
+						.		' name="form_element_id_' . $this->form_element->id . '">';
 		return $html;
 	}
 }

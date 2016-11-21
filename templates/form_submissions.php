@@ -17,8 +17,8 @@
 		<?php
 			foreach ($submissions as $submission) :
 				echo '<tr>';
-					echo "<td><a href=\"/display/{$form->form_id}?submission_id={$submission->submission_id}\">Edit submission {$submission->submission_id}</a></td>";
-					echo "<td><a href=\"/api/v1/submissions/{$submission->submission_id}\">Get {$submission->submission_id} via API</a></td>";
+					echo "<td><a href=\"/display/{$form->id}?submission_id={$submission->id}\">Edit submission {$submission->id}</a></td>";
+					echo "<td><a href=\"/api/v1/submissions/{$submission->id}\">Get {$submission->id} via API</a></td>";
 					echo "<td>{$submission->created_at}</td>";
 					echo "<td>{$submission->updated_at}</td>";
 				echo '</tr>';

@@ -33,7 +33,7 @@ class FormElementOption extends Model
 	 */
 	public function form_element()
 	{
-			return $this->belongsTo('IFS\Models\FormElement', 'form_element_id', 'form_element_id');
+			return $this->belongsTo('IFS\Models\FormElement');
 	}
 	
 }
