@@ -27,12 +27,14 @@ class FormDisplayController extends Controller
 	{	
 		// Get form data
 		$this->container->get('orm');
-		$form = \IFS\Models\Form::with([
-				'form_sections',
-				'form_elements' => function($query) {
-					$query->orderBy('order', 'asc');
+		$form = \IFS\Models\Form::with(
+				['form_sections.form_elements' => function($query) {
+					$query->orderBy('form_elements.order', 'asc');
 				}])
 				->findOrFail((int)$args['id']);
+			
+			// Make sure sections are sorted
+			$form->form_sections = $form->form_sections->sortBy('order');
 								
 		// Get URI object for route to be passed to template
 		$uri = $request->getUri();
