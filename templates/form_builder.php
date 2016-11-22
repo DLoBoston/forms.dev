@@ -6,13 +6,13 @@
 	<?php include 'partials/header.php'; ?>
 	
 	<form id="frmBuilder" action="<?= htmlspecialchars($route, ENT_QUOTES, "utf-8"); ?>" method="post">
-		<input type="hidden" name="form_fields" name="form_fields">
+		<input type="hidden" name="form_elements" name="form_elements">
 		
 		<div class="form-group">
 			<input type="text" name="name" value="<?= $form['name']; ?>">
 		</div>
 		
-		<div id="form-fields"></div>
+		<div id="form-elements"></div>
 			
 		<div class="form-group">
 			<button type="submit"><?php echo ($form['form_id']) ? 'Update' : 'Create'; ?></button>
@@ -28,8 +28,8 @@
 	<aside id="element-toolbox">
 		<p>Add Element</p>
 			<?php
-				foreach ($global_vars['form_field_types'] as $element_type) :
-					echo '<button type="button" data-form-field-type="' . $element_type . '">' . $element_type . '</button>';
+				foreach ($global_vars['form_element_types'] as $element_type) :
+					echo '<button type="button" data-form-element-type="' . $element_type . '">' . $element_type . '</button>';
 				endforeach;
 			?>
 	</aside>
