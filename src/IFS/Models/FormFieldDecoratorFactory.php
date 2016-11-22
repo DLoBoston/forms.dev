@@ -1,6 +1,6 @@
 <?php
 /**
- * Factory to create appropriate html element based on user-defined form field.
+ * Factory to create appropriate html field at run-time based on user-definition.
  * @author dennis <dennis@ifscore.com>
  */
 namespace IFS\Models;
@@ -10,18 +10,18 @@ use IFS\Models\FormFieldDecorators\CheckboxInput;
 use IFS\Models\FormFieldDecorators\TextInput;
 use IFS\Models\FormFieldDecorators\HiddenInput;
 use IFS\Models\FormFieldDecorators\TextAreaInput;
-use IFS\Models\FormFieldDecorators\SelectElement;
+use IFS\Models\FormFieldDecorators\SelectInput;
 use IFS\Models\FormFieldDecorators\MatrixRadioInput;
 use IFS\Models\FormFieldDecorators\MatrixCheckboxInput;
 
 /**
- * Factory to create appropriate html element based on user-defined form field.
+ * Factory to create appropriate html field at run-time based on user-definition.
  */
-abstract class HtmlElementFactory
+abstract class FormFieldDecoratorFactory
 {
 	
 	/**
-	 * Factory to create appropriate html element based on user-defined form field.
+	 * Factory to create appropriate html field at run-time based on user-definition.
 	 * 
 	 * @param \IFS\Models\FormField $generic_form_field User-defined form field.
 	 * @return \IFS\Models\FormFieldDecorators\TextInput|
@@ -50,7 +50,7 @@ abstract class HtmlElementFactory
 				break;
 			case 'select':
 			case 'select-multiple':
-				return new SelectElement($generic_form_field);
+				return new SelectInput($generic_form_field);
 				break;
 			case 'hidden_field':
 				return new HiddenInput($generic_form_field);

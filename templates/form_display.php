@@ -23,7 +23,7 @@
 				foreach ($form_section->form_fields as $form_field) :
 
 					// Create HTML object representation of form field
-					$html_element = \IFS\Models\HtmlElementFactory::create($form_field);
+					$decorated_form_field = \IFS\Models\FormFieldDecoratorFactory::create($form_field);
 
 					// Initialize form field value
 					$value = $form_field->default_value;
@@ -37,7 +37,7 @@
 					echo '<div' 
 							.	' class="form-group"'
 							. ' data-required="' . $form_field->required . '">';
-						echo $html_element->getHtml($value);
+						echo $decorated_form_field->getHtml($value);
 						echo "<p class=\"guidelines\">{$form_field->guidelines}</p>";
 					echo '</div>';
 				
