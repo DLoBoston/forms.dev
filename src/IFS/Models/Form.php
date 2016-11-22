@@ -22,6 +22,14 @@ class Form extends Model
 	}
 	
 	/**
+	 * Eloquent function to get the fields for a specific form.
+	 */
+	public function form_fields()
+	{
+			return $this->hasManyThrough('IFS\Models\FormField', 'IFS\Models\FormSection');
+	}
+	
+	/**
 	 * Eloquent function to get the form submissions for a specific form.
 	 */
 	public function form_submissions()
