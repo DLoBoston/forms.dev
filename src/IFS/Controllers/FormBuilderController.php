@@ -27,7 +27,7 @@ class FormBuilderController extends Controller
 		$form = null;
 		if (!empty($args)) :
 			$this->container->get('orm');
-			$form = \IFS\Models\Form::with(['form_elements.form_element_options'])
+			$form = \IFS\Models\Form::with(['form_fields.form_field_options'])
 								->findOrFail((int)$args['id']);
 		endif;
 		
@@ -73,55 +73,55 @@ class FormBuilderController extends Controller
 		$form->name = $data['name'];
 		$form->save();
     
-		// Update form elements associated with form
+		// Update form fields associated with form
 		
 			// Get user's submission
-			$form_elements = json_decode($data['form_elements']);
+			$form_fields = json_decode($data['form_fields']);
 			
-			// Store form element IDs. Used to determine what elements have been removed.
-			foreach ($form_elements as $form_element) :
-				$form_element_ids[] = $form_element->id;
+			// Store form field IDs. Used to determine what fields have been removed.
+			foreach ($form_fields as $form_field) :
+				$form_field_ids[] = $form_field->id;
 			endforeach;
 			
-			// Delete any elements that have been removed. Must come before adds/updates.
-			$form->form_elements()->whereNotIn('form_element_id', $form_element_ids)->delete();
+			// Delete any fields that have been removed. Must come before adds/updates.
+			$form->form_fields()->whereNotIn('form_field_id', $form_field_ids)->delete();
 		
-			// Loop through each element in submission
-			foreach ($form_elements as $form_element) :
+			// Loop through each field in submission
+			foreach ($form_fields as $form_field) :
 
-				// If there is an ID, setup a form element object from an existing model in the database
-				if ($form_element->id) :
-					$tmpFormElement = \IFS\Models\FormElement::findOrFail($form_element->id);
-				// Else, setup a new form element object
+				// If there is an ID, setup a form field object from an existing model in the database
+				if ($form_field->id) :
+					$tmpFormField = \IFS\Models\FormField::findOrFail($form_field->id);
+				// Else, setup a new form field object
 				else :
-					$tmpFormElement = new \IFS\Models\FormElement;
+					$tmpFormField = new \IFS\Models\FormField;
 				endif;
 		
-				// Update form element object with user submission
-				$tmpFormElement->type = $form_element->type;
-				$tmpFormElement->label = $form_element->label;
-				$tmpFormElement->order = $form_element->order;
-				$tmpFormElement->required = $form_element->required;
-				$tmpFormElement->guidelines = $form_element->guidelines;
-				$tmpFormElement->default_value = $form_element->default_value;
+				// Update form field object with user submission
+				$tmpFormField->type = $form_field->type;
+				$tmpFormField->label = $form_field->label;
+				$tmpFormField->order = $form_field->order;
+				$tmpFormField->required = $form_field->required;
+				$tmpFormField->guidelines = $form_field->guidelines;
+				$tmpFormField->default_value = $form_field->default_value;
 						
 				// Persist in database
-				$form->form_elements()->save($tmpFormElement);
+				$form->form_fields()->save($tmpFormField);
 				
-				// Delete any existing element options
-				$tmpFormElement->form_element_options()->delete();
+				// Delete any existing field options
+				$tmpFormField->form_field_options()->delete();
 
 				// If applicable, create new options with the user's submission
-				if ($form_element->options) :
+				if ($form_field->options) :
 					$options = null;
-					foreach (explode(",", $form_element->options) as $option) :
+					foreach (explode(",", $form_field->options) as $option) :
 						$options[] = ['value' => $option];
 					endforeach;
-					$tmpFormElement->form_element_options()->createMany($options);
+					$tmpFormField->form_field_options()->createMany($options);
 				endif;
 						
 				// Persist in database
-				$form->form_elements()->save($tmpFormElement);
+				$form->form_fields()->save($tmpFormField);
 
 			endforeach;
 				

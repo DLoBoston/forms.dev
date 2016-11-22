@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 class FormSubmissionValue extends Model
 {
 	/** @var array Eloquent convention that allows mass assignment of certain properties. */
-	protected $fillable = ['form_element_id', 'value'];
+	protected $fillable = ['form_field_id', 'value'];
 	
 	/**
 	 * Eloquent convention - All of the relationships to be touched.

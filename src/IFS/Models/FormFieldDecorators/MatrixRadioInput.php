@@ -1,29 +1,29 @@
 <?php
 /**
- * HTML matrix checkbox input decorator for Form Element.
+ * HTML matrix radio input decorator for FormField.
  * @author dennis <dennis@ifscore.com>
  */
-namespace IFS\Models\FormElementDecorators;
+namespace IFS\Models\FormFieldDecorators;
 
 /**
- * HTML matrix checkbox input decorator for Form Element. Note decorators include a
- * reference to the element they are decorating.
+ * HTML matrix radio input decorator for FormField. Note decorators include a
+ * reference to the field they are decorating.
  */
-class MatrixCheckboxElement extends FormElementDecorator
+class MatrixRadioInput extends FormFieldDecorator
 {
 	/**
-	 * Returns HTML for matrix checkbox input.
+	 * Returns HTML for matrix radio input.
 	 * 
-	 * @param string $value Element value
+	 * @param string $value Field value
 	 * @return string
 	 */
 	public function getHtml($value)
 	{
-		// Separate element options into column and row options
-		$column_options = $this->form_element->form_element_options->filter(function ($option) {
+		// Separate field options into column and row options
+		$column_options = $this->form_field->form_field_options->filter(function ($option) {
 			return ($option->type === "matrix-column");
 		});
-		$row_options = $this->form_element->form_element_options->filter(function ($option) {
+		$row_options = $this->form_field->form_field_options->filter(function ($option) {
 			return ($option->type === "matrix-row");
 		});
 		
@@ -43,10 +43,10 @@ class MatrixCheckboxElement extends FormElementDecorator
 			foreach ($column_options as $column_option) :
 				$matrix_rows .=	'<td>'
 											.		'<input'
-											.			' type="checkbox"'
-											.			' name="form_element_id_' . $row_option->form_element_id . '_option_id_' . $row_option->id . '[]"'
+											.			' type="radio"'
+											.			' name="form_field_id_' . $row_option->form_field_id . '_option_id_' . $row_option->id . '"'
 											.			' value="' . $column_option->value . '"'
-											.			(($value && array_key_exists($row_option->value, $value) && array_search($column_option->value, $value[$row_option->value]) !== false) ? ' checked' : '')														
+											.			(($value && array_key_exists($row_option->value, $value) && $column_option->value === $value[$row_option->value]) ? ' checked' : '')
 											.		'>'
 											. '</td>';
 			endforeach;
@@ -57,8 +57,8 @@ class MatrixCheckboxElement extends FormElementDecorator
 		
 		// Construct HTML
 		$html =		'<p>'
-						.		(($this->form_element->required) ? '<span class="required">* </span>' : '')
-						.		$this->form_element->label
+						.		(($this->form_field->required) ? '<span class="required">* </span>' : '')
+						.		$this->form_field->label
 						. '</p>'
 						. '<table class="table">'
 						.		'<tr>'

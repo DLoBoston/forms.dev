@@ -19,26 +19,26 @@
 				echo "<fieldset>"
 				.				"<legend>{$form_section->name}</legend>";
 			
-				// Create form elements
-				foreach ($form_section->form_elements as $form_element) :
+				// Create form fields
+				foreach ($form_section->form_fields as $form_field) :
 
-					// Create HTML object representation of form element
-					$html_element = \IFS\Models\HtmlElementFactory::create($form_element);
+					// Create HTML object representation of form field
+					$html_element = \IFS\Models\HtmlElementFactory::create($form_field);
 
-					// Initialize form element value
-					$value = $form_element->default_value;
+					// Initialize form field value
+					$value = $form_field->default_value;
 
 					// If applicable, overwrite with previous submission
 					if ($keyed_submission_values) :
-						$value = ($keyed_submission_values->has($form_element->id)) ? json_decode($keyed_submission_values[$form_element->id]->value, true) : null;
+						$value = ($keyed_submission_values->has($form_field->id)) ? json_decode($keyed_submission_values[$form_field->id]->value, true) : null;
 					endif;
 
 					// Output display
 					echo '<div' 
 							.	' class="form-group"'
-							. ' data-required="' . $form_element->required . '">';
+							. ' data-required="' . $form_field->required . '">';
 						echo $html_element->getHtml($value);
-						echo "<p class=\"guidelines\">{$form_element->guidelines}</p>";
+						echo "<p class=\"guidelines\">{$form_field->guidelines}</p>";
 					echo '</div>';
 				
 				endforeach;

@@ -52,7 +52,7 @@ class Form extends Model
 			$data = [
 					'form_id' => $form->id,
 					'name' => $form->name,
-					'elements' => $form->form_elements->sortBy('order')->values()
+					'elements' => $form->form_fields->sortBy('order')->values()
 				];
 		endif;
 

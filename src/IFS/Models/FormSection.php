@@ -9,16 +9,16 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Models interaction with form_sections entity in persistent data.
- * Form elements are fields on a form.
+ * Form Fields are fields on a form.
  */
 class FormSection extends Model
 {
 	/**
-	 * Eloquent function to get the form elements associated with a section.
+	 * Eloquent function to get the form fields associated with a section.
 	 */
-	public function form_elements()
+	public function form_fields()
 	{
-			return $this->hasMany('IFS\Models\FormElement');
+			return $this->hasMany('IFS\Models\FormField');
 	}
 	
 }

@@ -28,8 +28,8 @@ class FormDisplayController extends Controller
 		// Get form data
 		$this->container->get('orm');
 		$form = \IFS\Models\Form::with(
-				['form_sections.form_elements' => function($query) {
-					$query->orderBy('form_elements.order', 'asc');
+				['form_sections.form_fields' => function($query) {
+					$query->orderBy('form_fields.order', 'asc');
 				}])
 				->findOrFail((int)$args['id']);
 			
@@ -47,7 +47,7 @@ class FormDisplayController extends Controller
 		$keyed_submission_values = null;
 		if ($submission_id) :
 			$submission = \IFS\Models\FormSubmission::with('form_submission_values')->findOrFail((int)$submission_id);
-			$keyed_submission_values = $submission->form_submission_values->keyBy('form_element_id');
+			$keyed_submission_values = $submission->form_submission_values->keyBy('form_field_id');
 		endif;
 		
 		// Return template
@@ -93,34 +93,34 @@ class FormDisplayController extends Controller
 		// Delete previous submission values before storing new ones
 		$form_submission->form_submission_values()->delete();
 		
-		// Aggregate input values (i.e. elements with an form_element_id)
+		// Aggregate input values (i.e. elements with an form_field_id)
 		$users_submission = [];
-		foreach ($data as $form_element => $value) :
-			if (strpos($form_element, 'form_element_id_') !== false) :
+		foreach ($data as $form_field => $value) :
+			if (strpos($form_field, 'form_field_id_') !== false) :
 				
-				// Get form element ID
-				preg_match('/form_element_id_([0-9]+)(_option_id_){0,1}([0-9]+)*/', $form_element, $matches);
-				$form_element_id = $matches[1];
+				// Get form field ID
+				preg_match('/form_field_id_([0-9]+)(_option_id_){0,1}([0-9]+)*/', $form_field, $matches);
+				$form_field_id = $matches[1];
 				
 				// Get option if applicable
-				$form_element_option_id = null;
+				$form_field_option_id = null;
 				if (strpos($matches[0], 'option_id') !== false) :
-					$form_element_option_id = $matches[3];
-					$form_element_option = \IFS\Models\FormElementOption::find($form_element_option_id);
+					$form_field_option_id = $matches[3];
+					$form_field_option = \IFS\Models\FormFieldOption::find($form_field_option_id);
 				endif;
 				
-				if (!$form_element_option_id) :
-					$users_submission[$form_element_id] = $value;
+				if (!$form_field_option_id) :
+					$users_submission[$form_field_id] = $value;
 				else :
-					$users_submission[$form_element_id][$form_element_option->value] = $value;
+					$users_submission[$form_field_id][$form_field_option->value] = $value;
 				endif;
 				
 			endif;
 		endforeach;
 		
 		// Instantiate model for each submission value
-		foreach ($users_submission as $form_element_id => $form_submission_value) :
-			$form_submission_values[] = new \IFS\Models\FormSubmissionValue(['form_element_id' => $form_element_id, 'value' => json_encode($form_submission_value)]);
+		foreach ($users_submission as $form_field_id => $form_submission_value) :
+			$form_submission_values[] = new \IFS\Models\FormSubmissionValue(['form_field_id' => $form_field_id, 'value' => json_encode($form_submission_value)]);
 		endforeach;
 		
 		// Persist in database

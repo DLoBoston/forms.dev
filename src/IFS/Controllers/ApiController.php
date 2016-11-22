@@ -28,8 +28,8 @@ class ApiController extends Controller
 		$this->container->get('orm');
 		$raw_submission = \IFS\Models\FormSubmission::with('form_submission_values')->findOrFail((int)$args['id']);
 		$raw_keyed_submission_values = $raw_submission->form_submission_values->keyBy(function ($item) {
-			$element_label = \IFS\Models\FormElement::where('id', $item['form_element_id'])->value('label');
-			return $element_label;
+			$field_label = \IFS\Models\FormField::where('id', $item['form_field_id'])->value('label');
+			return $field_label;
 		});
 		
 		// Format data for response

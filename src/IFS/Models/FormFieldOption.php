@@ -8,10 +8,10 @@ namespace IFS\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Models interaction with form_element_options entity in persistent data.
+ * Models interaction with form_field_options entity in persistent data.
  * Options are used on fields like radio buttons and checkboxes.
  */
-class FormElementOption extends Model
+class FormFieldOption extends Model
 {
 	
 	/**
@@ -26,14 +26,14 @@ class FormElementOption extends Model
 	 *
 	 * @var array
 	 */
-	protected $touches = ['form_element'];
+	protected $touches = ['form_field'];
 	
 	/**
-	 * Eloquent convention - Get the form element that this option belongs to.
+	 * Eloquent convention - Get the form field that this option belongs to.
 	 */
-	public function form_element()
+	public function form_field()
 	{
-			return $this->belongsTo('IFS\Models\FormElement');
+			return $this->belongsTo('IFS\Models\FormField');
 	}
 	
 }

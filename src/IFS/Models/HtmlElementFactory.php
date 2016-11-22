@@ -1,66 +1,66 @@
 <?php
 /**
- * Factory to create appropriate html element based on user-defined form element.
+ * Factory to create appropriate html element based on user-defined form field.
  * @author dennis <dennis@ifscore.com>
  */
 namespace IFS\Models;
 
-use IFS\Models\FormElementDecorators\RadioElement;
-use IFS\Models\FormElementDecorators\CheckboxElement;
-use IFS\Models\FormElementDecorators\TextElement;
-use IFS\Models\FormElementDecorators\HiddenElement;
-use IFS\Models\FormElementDecorators\TextAreaElement;
-use IFS\Models\FormElementDecorators\SelectElement;
-use IFS\Models\FormElementDecorators\MatrixRadioElement;
-use IFS\Models\FormElementDecorators\MatrixCheckboxElement;
+use IFS\Models\FormFieldDecorators\RadioInput;
+use IFS\Models\FormFieldDecorators\CheckboxInput;
+use IFS\Models\FormFieldDecorators\TextInput;
+use IFS\Models\FormFieldDecorators\HiddenInput;
+use IFS\Models\FormFieldDecorators\TextAreaInput;
+use IFS\Models\FormFieldDecorators\SelectElement;
+use IFS\Models\FormFieldDecorators\MatrixRadioInput;
+use IFS\Models\FormFieldDecorators\MatrixCheckboxInput;
 
 /**
- * Factory to create appropriate html element based on user-defined form element.
+ * Factory to create appropriate html element based on user-defined form field.
  */
 abstract class HtmlElementFactory
 {
 	
 	/**
-	 * Factory to create appropriate html element based on user-defined form element.
+	 * Factory to create appropriate html element based on user-defined form field.
 	 * 
-	 * @param \IFS\Models\FormElement $generic_form_element User-defined form element.
-	 * @return \IFS\Models\FormElementDecorators\TextElement|
-	 *				 \IFS\Models\FormElementDecorators\HiddenElement|
-	 *				 \IFS\Models\FormElementDecorators\TextAreaElement|
-	 *				 \IFS\Models\FormElementDecorators\RadioElement|
-	 *				 \IFS\Models\FormElementDecorators\CheckboxElement|
-	 *				 \IFS\Models\FormElementDecorators\SelectElement|
-	 *				 \IFS\Models\FormElementDecorators\MatrixRadioElement|
-	 *				 \IFS\Models\FormElementDecorators\MatrixCheckboxElement
+	 * @param \IFS\Models\FormField $generic_form_field User-defined form field.
+	 * @return \IFS\Models\FormFieldDecorators\TextInput|
+	 *				 \IFS\Models\FormFieldDecorators\HiddenInput|
+	 *				 \IFS\Models\FormFieldDecorators\TextAreaInput|
+	 *				 \IFS\Models\FormFieldDecorators\RadioInput|
+	 *				 \IFS\Models\FormFieldDecorators\CheckboxInput|
+	 *				 \IFS\Models\FormFieldDecorators\SelectElement|
+	 *				 \IFS\Models\FormFieldDecorators\MatrixRadioInput|
+	 *				 \IFS\Models\FormFieldDecorators\MatrixCheckboxInput
 	 */
-	public static function create(\IFS\Models\FormElement $generic_form_element)
+	public static function create(\IFS\Models\FormField $generic_form_field)
 	{
-		switch ($generic_form_element->type) {
+		switch ($generic_form_field->type) {
 			case 'matrix-radio':
-				return new MatrixRadioElement($generic_form_element);
+				return new MatrixRadioInput($generic_form_field);
 				break;
 			case 'matrix-checkbox':
-				return new MatrixCheckboxElement($generic_form_element);
+				return new MatrixCheckboxInput($generic_form_field);
 				break;
 			case 'radio':
-				return new RadioElement($generic_form_element);
+				return new RadioInput($generic_form_field);
 				break;
 			case 'checkbox':
-				return new CheckboxElement($generic_form_element);
+				return new CheckboxInput($generic_form_field);
 				break;
 			case 'select':
 			case 'select-multiple':
-				return new SelectElement($generic_form_element);
+				return new SelectElement($generic_form_field);
 				break;
 			case 'hidden_field':
-				return new HiddenElement($generic_form_element);
+				return new HiddenInput($generic_form_field);
 				break;
 			case 'textarea':
-				return new TextAreaElement($generic_form_element);
+				return new TextAreaInput($generic_form_field);
 				break;
 			case 'single_line_text':
 			default:
-				return new TextElement($generic_form_element);
+				return new TextInput($generic_form_field);
 				break;
 		}
 	}

@@ -7,8 +7,8 @@ $(document).ready(function() {
 	//// CUSTOM OBJECTS ------------------------------------
 
 	// Validation Error
-	var ValidationError = function (element_name, error) {
-		this.element_name = element_name;
+	var ValidationError = function (field_name, error) {
+		this.field_name = field_name;
 		this.error = error;
 	};
     
@@ -67,9 +67,9 @@ $(document).ready(function() {
 		// Initialize vars
 		var errors_list_items = '';
 		
-		// Convert errors to html list elements
+		// Convert errors to html list fields
 		for (var i = 0; i < validation_errors.length; i++) {
-			errors_list_items += '<li>' + validation_errors[i].element_name + ': ' + validation_errors[i].error + '</li>';
+			errors_list_items += '<li>' + validation_errors[i].field_name + ': ' + validation_errors[i].error + '</li>';
 		}
 		
 		// Plug errors list into html container for display
