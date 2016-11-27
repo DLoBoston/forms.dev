@@ -44,10 +44,10 @@ $(document).ready(function() {
 		for (var i = 0; i < current_form_data.elements.length; i++) {
 
 			// Convert options from current form data into format for page storage
-			form_element_options = [];
-			if (current_form_data.elements[i].form_element_options.length){
-				for (var j = 0; j < current_form_data.elements[i].form_element_options.length; j++) {
-					form_element_options.push(current_form_data.elements[i].form_element_options[j].value);
+			form_field_options = [];
+			if (current_form_data.elements[i].form_field_options.length){
+				for (var j = 0; j < current_form_data.elements[i].form_field_options.length; j++) {
+					form_field_options.push(current_form_data.elements[i].form_field_options[j].value);
 				}
 			}
 
@@ -59,7 +59,7 @@ $(document).ready(function() {
 												current_form_data.elements[i].default_value,
 												current_form_data.elements[i].required,
 												current_form_data.elements[i].guidelines,
-												form_element_options);
+												form_field_options);
 		};
 	}
 
